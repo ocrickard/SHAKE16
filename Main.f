@@ -37,25 +37,25 @@ C ...................................................................
      + 2X,'*             by: I. M. Idriss                            *'/
      + 2X,'*             December 1991                               *'/
      + 2X,'***********************************************************')
-C
+
       write(*,200)
   200 format(4X,'Name of Input File =')
       read(*,10) FIN
-C
+
       write(*,300)
   300 format(4X,'Name of Output File #1 (input, peak values .. etc) =')
       read(*,10) FOUT
-C
+
       write(*,400)
   400 format(4X,'Name of Output File #2 (time histories .. etc) =')
       read(*,10) PUNCH
-C
+
    10 format(A32)
-C
+
       open(5,FILE=FIN,STATUS='OLD')
       open(6,FILE=FOUT,STATUS='NEW')
       open(7,FILE=PUNCH,STATUS='NEW')
-C
+
       write(6,100)
       WW = .0624
       GT = 32.2
@@ -111,23 +111,23 @@ C
       common /JISCK/ JIS,FINPEQ
 C
       PI2 = 6.283185307
-      read(5,1001) NV, MA, DT, FINPEQ, FMAT
-      read(5,1004) XF,XMAX,FMAX,NHEAD, NPL
+      read(5, 1001) NV, MA, DT, FINPEQ, FMAT
+      read(5, 1004) XF,XMAX,FMAX,NHEAD, NPL
       if (FMAX .LT. .001) FMAX = 100000.
       if (FMAT .EQ. '            ') FMAT = '(8F9.6,I7)'
-      MA2=2
+      MA2 = 2
     2 if (MA2.GE.MA) go to 3
-      MA2=MA2*2
+      MA2 = MA2 * 2
       go to 2
     3 MA=MA2
 C  ....................................................................
-      write(6,2012) FINPEQ, NV, MA, NHEAD, NPL, DT, FMAT
+      write(6, 2012) FINPEQ, NV, MA, NHEAD, NPL, DT, FMAT
       write (*,2026) FINPEQ,FMAT
-      open(8,FILE=FINPEQ,STATUS='OLD')
+      open(8, FILE=FINPEQ, STATUS='OLD')
       write (6,2021)
       do 4 I=1,NHEAD
-      read(8,2022) HEAD
-    4 write(6,2022) HEAD
+      read(8, 2022) HEAD
+    4 write(6, 2022) HEAD
 C      write (6,2023)
       MMA = NV + NV / 10
       if (MMA .GT. MA) MMA=MA
