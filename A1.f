@@ -86,43 +86,45 @@ C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  *
 C
       DIMENSION T(200), TSTEP(27), NT(27)
 C
-      GO TO (1, 2), KK
-    1 K = 1
-      T(K) = 0.
-      SAVE = 0.
-      DO N = 1,NN
-        M = NT(N)
-        STEP = (TSTEP(N) - SAVE)/FLOAT(M)
-        SAVE = TSTEP(N)
-        DO I = 1,M
-          K = K + 1
-          T(K) = T(K-1) + STEP
+      IF (KK .EQ. 1) THEN
+        K = 1
+        T(K) = 0.
+        SAVE = 0.
+        DO N = 1,NN
+          M = NT(N)
+          STEP = (TSTEP(N) - SAVE)/FLOAT(M)
+          SAVE = TSTEP(N)
+          DO I = 1,M
+            K = K + 1
+            T(K) = T(K-1) + STEP
+          END DO
         END DO
-      END DO
-      NSTEP = K
-      RETURN
-    2 NST = ALOG10(T1)
-      IF (T1.LT. 1.) NST = NST - 1
-      STEP = 1./NN
-      K = 1
-      TA = 10.**FLOAT(NST)
-      T(1) = TA
-      DO J = 2,NN
-        K = K + 1
-        T(K) = TA*10.**(STEP*FLOAT(J))
-        IF (T(K) .GT. T1) GO TO 221
-      END DO
-  221 TA = T(K-1)
-      K = 0
-  211 DO J = 1,NN
-        K = K + 1
-        T(K) = TA*10.**(STEP*FLOAT(J))
-        IF (T(K).GT.TN)  GO TO 212
-      END DO
-      TA = TA*10.
-      GO TO 211
-  212 NSTEP = K
-      RETURN
+        NSTEP = K
+        RETURN
+      ELSE IF (KK .EQ. 2) THEN
+        NST = ALOG10(T1)
+        IF (T1.LT. 1.) NST = NST - 1
+        STEP = 1./NN
+        K = 1
+        TA = 10.**FLOAT(NST)
+        T(1) = TA
+        DO J = 2,NN
+          K = K + 1
+          T(K) = TA*10.**(STEP*FLOAT(J))
+          IF (T(K) .GT. T1) GO TO 221
+        END DO
+  221   TA = T(K-1)
+        K = 0
+  211   DO J = 1,NN
+          K = K + 1
+          T(K) = TA*10.**(STEP*FLOAT(J))
+          IF (T(K).GT.TN)  GO TO 212
+        END DO
+        TA = TA*10.
+        GO TO 211
+  212   NSTEP = K
+        RETURN
+      END IF
       END
 C***********************************************************
       SUBROUTINE RESP(LN,LS,NN,X,AX,A,S,INV)
