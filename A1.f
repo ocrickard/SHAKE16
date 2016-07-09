@@ -273,11 +273,13 @@ C
       dimension ID(27,11)
 C .....................................................................
       zmax =0
-      do 10 K = 1, KG
-      IF(zmax .gt. ABS(A(K))) go to 9
-      zmax = ABS(A(K))
-    9 A(K) = GGT*A(K)
-   10 continue
+      do K = 1, KG
+        if (zmax .gt. ABS(A(K))) then
+          A(K) = GGT*A(K)
+        else
+          zmax = ABS(A(K))
+        end if
+      end do
       PIW = 6.283185307
       SV(NN,1) = zmax*GGT*T(1)/PIW
       SA(NN,1) = zmax
