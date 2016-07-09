@@ -328,8 +328,9 @@ C .....................................................................
         write(6,322) N,T(N),RD(N),SV(NN,N),PRV(N),SA(NN,N),PAA(N),FREKV
       end do
       write(6,2002) SUMSA,SUMSV,SAMAX,SVMAX
-      do 11 K = 1,KG
-   11 A(K) = A(K)/GGT
+      do K = 1,KG
+        A(K) = A(K)/GGT
+      end do
       return
 C
   112 format(/5X,41HTIMES AT WHICH MAX. SPECTRAL VALUES OCCUR /
