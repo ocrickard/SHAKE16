@@ -1,18 +1,18 @@
 
-A1.o: A1.FOR
-	gfortran -c A1.FOR
+build: A1.o B1.o C1.o Main.o
+	gfortran A1.o B1.o C1.o Main.o -o SHAKE91
 
-B1.o: B1.FOR
-	gfortran -c B1.FOR
+A1.o: A1.f
+	gfortran -c A1.f
 
-C1.o: C1.FOR
-	gfortran -c C1.FOR
+B1.o: B1.f
+	gfortran -c B1.f
 
-MAIN.o: MAIN.FOR
-	gfortran -c MAIN.FOR
+C1.o: C1.f
+	gfortran -c C1.f
 
-build: A1.o B1.o C1.o MAIN.o
-	gfortran A1.o B1.o C1.o MAIN.o -o SHAKE91
+Main.o: Main.f
+	gfortran -c Main.f
 
 install: build
 	cp SHAKE91 /usr/local/bin/SHAKE91
