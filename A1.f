@@ -223,12 +223,13 @@ C   TRANSFORM VALUES IN X OR AX INto THE TIME DOMAIN
       do L = 1,ND
         if (NN .ge. 5)  NN= 0
         NN = NN + 1
-        do 131 I = 1,5
-  131   ID(NN,I) = TITLE(I)
-        do 132 I = 6,11
-        ID(NN,I) = IDNT(I-5)
-        if (LS .eq. 0) ID(NN,I) = IBLANK
-  132   continue
+        do I = 1,5
+          ID(NN,I) = TITLE(I)
+        end do
+        do I = 6,11
+          ID(NN,I) = IDNT(I-5)
+          if (LS .eq. 0) ID(NN,I) = IBLANK
+        end do
 C
 C       COMPUTE RESPONSE FOR ACCELERATION VALUES IN AA(1, )FOR THE PERIODS
 C       GIVEN IN T( )
@@ -450,21 +451,23 @@ C* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
       JSTEP=NT
       JDIF=NTV2
       S(JDIF)=SIN(THETA)
-      do 660 L=2,MT
-      THETA=THETA/2.
-      JSTEP2=JSTEP
-      JSTEP=JDIF
-      JDIF=JSTEP/2
-      S(JDIF)=SIN(THETA)
-      JC1=NT-JDIF
-      S(JC1)=COS(THETA)
-      JLAST=NT-JSTEP2
-      if (JLAST-JSTEP) 660,640,640
-640   do 650 J=JSTEP,JLAST,JSTEP
-      JC=NT-J
-      JD=J+JDIF
-650   S(JD)=S(J)*S(JC1)+S(JDIF)*S(JC)
-660   continue
+      do L=2,MT
+        THETA=THETA/2.
+        JSTEP2=JSTEP
+        JSTEP=JDIF
+        JDIF=JSTEP/2
+        S(JDIF)=SIN(THETA)
+        JC1=NT-JDIF
+        S(JC1)=COS(THETA)
+        JLAST=NT-JSTEP2
+        if (JLAST-JSTEP .ge. 0) then
+          do J=JSTEP,JLAST,JSTEP
+            JC=NT-J
+            JD=J+JDIF
+            S(JD)=S(J)*S(JC1)+S(JDIF)*S(JC)
+          end do
+        end if
+      end do
 C
 C     SET UP INV(J) TABLE
       MTLEXP=NTV2
