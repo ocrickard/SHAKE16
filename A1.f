@@ -473,13 +473,15 @@ C     SET UP INV(J) TABLE
       MTLEXP=NTV2
       LM1EXP=1
       INV(1)=0
-      do 680 L=1,MT
-      INV(LM1EXP+1)=MTLEXP
-      do 670 J=2,LM1EXP
-      JJ=J+LM1EXP
-670   INV(JJ)=INV(J)+MTLEXP
-      MTLEXP=MTLEXP/2
-680   LM1EXP=LM1EXP*2
+      do L=1,MT
+        INV(LM1EXP+1)=MTLEXP
+        do J=2,LM1EXP
+          JJ=J+LM1EXP
+          INV(JJ)=INV(J)+MTLEXP
+        end do
+        MTLEXP=MTLEXP/2
+        LM1EXP=LM1EXP*2
+      end do
       if (IFSET) 20,600,20
 20    MTT=MAX0(M(1),M(2),M(3))-2
       ROOT2=SQRT(2.)
