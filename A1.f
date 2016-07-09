@@ -311,19 +311,22 @@ C .....................................................................
       SAMAX = 0.
       TT1 = .1
       TT2 = 0.
-      do 320 N = 1, M
-      FREKV = 1./T(N)
-      if (T(N) .lt. .0999 .or. TT2.gt.2.4999)  go to 320
-      TT2 = (T(N+1) + T(N))/2.
-      if (TT2.gt.2.5)  TT2 = 2.5
-      TT = TT2 - TT1
-      SUMSA = SA(NN,N)*TT + SUMSA
-      SUMSV = SV(NN,N)*TT + SUMSV
-      SUMT = SUMT + TT
-      TT1 = TT2
-      if (SVMAX.lt.SV(NN,N))  SVMAX = SV(NN,N)
-      if (SAMAX.lt.SA(NN,N))  SAMAX = SA(NN,N)
-  320 write(6,322) N,T(N),RD(N),SV(NN,N),PRV(N),SA(NN,N),PAA(N),FREKV
+      do N = 1, M
+        FREKV = 1./T(N)
+        if (T(N) .lt. .0999 .or. TT2.gt.2.4999) then
+          continue
+        end if
+        TT2 = (T(N+1) + T(N))/2.
+        if (TT2.gt.2.5)  TT2 = 2.5
+        TT = TT2 - TT1
+        SUMSA = SA(NN,N)*TT + SUMSA
+        SUMSV = SV(NN,N)*TT + SUMSV
+        SUMT = SUMT + TT
+        TT1 = TT2
+        if (SVMAX.lt.SV(NN,N))  SVMAX = SV(NN,N)
+        if (SAMAX.lt.SA(NN,N))  SAMAX = SA(NN,N)
+        write(6,322) N,T(N),RD(N),SV(NN,N),PRV(N),SA(NN,N),PAA(N),FREKV
+      end do
       write(6,2002) SUMSA,SUMSV,SAMAX,SVMAX
       do 11 K = 1,KG
    11 A(K) = A(K)/GGT
