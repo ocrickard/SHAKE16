@@ -114,11 +114,11 @@ C
       END DO
   221 TA = T(K-1)
       K = 0
-  211 DO 21 J = 1,NN
-      K = K + 1
-      T(K) = TA*10.**(STEP*FLOAT(J))
-      IF (T(K).GT.TN)  GO TO 212
-   21 CONTINUE
+  211 DO J = 1,NN
+        K = K + 1
+        T(K) = TA*10.**(STEP*FLOAT(J))
+        IF (T(K).GT.TN)  GO TO 212
+      END DO
       TA = TA*10.
       GO TO 211
   212 NSTEP = K
