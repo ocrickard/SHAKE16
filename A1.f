@@ -51,16 +51,18 @@ C
 C
       CALL STEPG(K1, NN, TSTEP, NT, XMIN, XMAX, T, NSTEP)
 C
-      DO 2 L = 1,NC
-      M = NV(L) - 1
-      DO 2 I = 1,NSTEP
-      DO 3 J = 1,M
-      IF (T(I) .LT. X(L,J))  GO TO  31
-    3 CONTINUE
-      J = M
-   31 TT = T(I)
-      IF (K1 .EQ. 2) TT = ALOG10(TT)
-    2 V(L,I) = A(L,J)*TT  + B(L,J)
+      DO L = 1,NC
+        M = NV(L) - 1
+        DO I = 1,NSTEP
+          DO J = 1,M
+            IF (T(I) .LT. X(L,J))  GO TO  31
+          END DO
+          J = M
+   31     TT = T(I)
+          IF (K1 .EQ. 2) TT = ALOG10(TT)
+          V(L,I) = A(L,J)*TT  + B(L,J)
+        END DO
+      END DO
       RETURN
       END
 C*********************************************************************
