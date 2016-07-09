@@ -90,13 +90,15 @@ C
     1 K = 1
       T(K) = 0.
       SAVE = 0.
-      DO 11 N = 1,NN
-      M = NT(N)
-      STEP = (TSTEP(N) - SAVE)/FLOAT(M)
-      SAVE = TSTEP(N)
-      DO 11 I = 1,M
-      K = K + 1
-   11 T(K) = T(K-1) + STEP
+      DO N = 1,NN
+        M = NT(N)
+        STEP = (TSTEP(N) - SAVE)/FLOAT(M)
+        SAVE = TSTEP(N)
+        DO I = 1,M
+          K = K + 1
+          T(K) = T(K-1) + STEP
+        END DO
+      END DO
       NSTEP = K
       RETURN
     2 NST = ALOG10(T1)
@@ -105,11 +107,11 @@ C
       K = 1
       TA = 10.**FLOAT(NST)
       T(1) = TA
-      DO 22 J = 2,NN
-      K = K + 1
-      T(K) = TA*10.**(STEP*FLOAT(J))
-      IF (T(K) .GT. T1) GO TO 221
-   22 CONTINUE
+      DO J = 2,NN
+        K = K + 1
+        T(K) = TA*10.**(STEP*FLOAT(J))
+        IF (T(K) .GT. T1) GO TO 221
+      END DO
   221 TA = T(K-1)
       K = 0
   211 DO 21 J = 1,NN
