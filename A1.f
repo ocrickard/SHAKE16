@@ -510,175 +510,61 @@ C     M3=M(3)
       NP(1)=N1*2
       NP(2)=NP(1)*N2
       NP(3)=NP(2)*N3
-      do 330 ID=1,3
-      IL=NP(3)-NP(ID)
-      IL1=IL+1
-      MI=M(ID)
-      if (MI) 330,330,80
-80    IDIF=NP(ID)
-      KBIT=NP(ID)
-      MEV=2*(MI/2)
-      if (MI-MEV .gt. 0) then
-        KBIT=KBIT/2
+      do ID=1,3
+        IL=NP(3)-NP(ID)
+        IL1=IL+1
+        MI=M(ID)
+        if (MI) 330,330,80
+80      IDIF=NP(ID)
+        KBIT=NP(ID)
+        MEV=2*(MI/2)
+        if (MI-MEV .gt. 0) then
+          KBIT=KBIT/2
+          KL=KBIT-2
+          do I=1,IL1,IDIF
+            KLAST=KL+I
+            do K=I,KLAST,2
+              KD=K+KBIT
+              T=A(KD)
+              A(KD)=A(K)-T
+              A(K)=A(K)+T
+              T=A(KD+1)
+              A(KD+1)=A(K+1)-T
+              A(K+1)=A(K+1)+T
+            end do
+          end do
+          if (MI-1 .gt. 0) then
+            LFIRST=3
+            JLAST=1
+          else
+            go to 330
+          end if
+        else
+120       LFIRST=2
+          JLAST=0
+        end if
+130     do 320 L=LFIRST,MI,2
+        JJDIF=KBIT
+        KBIT=KBIT/4
         KL=KBIT-2
         do I=1,IL1,IDIF
-          KLAST=KL+I
-          do K=I,KLAST,2
-            KD=K+KBIT
-            T=A(KD)
-            A(KD)=A(K)-T
-            A(K)=A(K)+T
-            T=A(KD+1)
-            A(KD+1)=A(K+1)-T
-            A(K+1)=A(K+1)+T
-          end do
-        end do
-        if (MI-1 .gt. 0) then
-          LFIRST=3
-          JLAST=1
-        else
-          go to 330
-        end if
-      else
-  120   LFIRST=2
-        JLAST=0
-      end if
-130   do 320 L=LFIRST,MI,2
-      JJDIF=KBIT
-      KBIT=KBIT/4
-      KL=KBIT-2
-      do I=1,IL1,IDIF
-        KLAST=I+KL
-        do K=I,KLAST,2
-          K1=K+KBIT
-          K2=K1+KBIT
-          K3=K2+KBIT
-          T=A(K2)
-          A(K2)=A(K)-T
-          A(K)=A(K)+T
-          T=A(K2+1)
-          A(K2+1)=A(K+1)-T
-          A(K+1)=A(K+1)+T
-          T=A(K3)
-          A(K3)=A(K1)-T
-          A(K1)=A(K1)+T
-          T=A(K3+1)
-          A(K3+1)=A(K1+1)-T
-          A(K1+1)=A(K1+1)+T
-          T=A(K1)
-          A(K1)=A(K)-T
-          A(K)=A(K)+T
-          T=A(K1+1)
-          A(K1+1)=A(K+1)-T
-          A(K+1)=A(K+1)+T
-          R=-A(K3+1)
-          T=A(K3)
-          A(K3)=A(K2)-R
-          A(K2)=A(K2)+R
-          A(K3+1)=A(K2+1)-T
-          A(K2+1)=A(K2+1)+T
-        end do
-      end do
-      if (JLAST) 310,310,150
-150   JJ=JJDIF+1
-      ILAST=IL+JJ
-      do I=JJ,ILAST,IDIF
-        KLAST=KL+I
-        do K=I,KLAST,2
-          K1=K+KBIT
-          K2=K1+KBIT
-          K3=K2+KBIT
-          R=-A(K2+1)
-          T=A(K2)
-          A(K2)=A(K)-R
-          A(K)=A(K)+R
-          A(K2+1)=A(K+1)-T
-          A(K+1)=A(K+1)+T
-          AWR = A(K1)-A(K1+1)
-          AWI=A(K1+1)+A(K1)
-          R=-A(K3)-A(K3+1)
-          T=A(K3)-A(K3+1)
-          A(K3)=(AWR-R)/ROOT2
-          A(K3+1)=(AWI-T)/ROOT2
-          A(K1)=(AWR+R)/ROOT2
-          A(K1+1)=(AWI+T)/ROOT2
-          T=A(K1)
-          A(K1)=A(K)-T
-          A(K)=A(K)+T
-          T=A(K1+1)
-          A(K1+1)=A(K+1)-T
-          A(K+1)=A(K+1)+T
-          R=-A(K3+1)
-          T=A(K3)
-          A(K3)=A(K2)-R
-          A(K2)=A(K2)+R
-          A(K3+1)=A(K2+1)-T
-          A(K2+1)=A(K2+1)+T
-        end do
-      end do
-      if (JLAST-1) 310,310,170
-170   JJ=JJ+JJDIF
-      do J=2,JLAST
-        I=INV(J+1)
-        IC=NT-I
-        W(1)=S(IC)
-        W(2)=S(I)
-        I2=2*I
-        I2C=NT-I2
-        if (I2C) 200,190,180
-180     W2(1)=S(I2C)
-        W2(2)=S(I2)
-        go to 210
-190     W2(1)=0.
-        W2(2)=1.
-        go to 210
-200     I2CC=I2C+NT
-        I2C=-I2C
-        W2(1)=-S(I2C)
-        W2(2)=S(I2CC)
-210     I3=I+I2
-        I3C=NT-I3
-        if (I3C) 240,230,220
-220     W3(1)=S(I3C)
-        W3(2)=S(I3)
-        go to 280
-230     W3(1)=0.
-        W3(2)=1.
-        go to 280
-240     I3CC=I3C+NT
-        if (I3CC) 270,260,250
-250     I3C=-I3C
-        W3(1)=-S(I3C)
-        W3(2)=S(I3CC)
-        go to 280
-260     W3(1)=-1.
-        W3(2)=0.
-        go to 280
-270     I3CCC=NT+I3CC
-        I3CC=-I3CC
-        W3(1)=-S(I3CCC)
-        W3(2)=-S(I3CC)
-280     ILAST=IL+JJ
-        do I=JJ,ILAST,IDIF
-          KLAST=KL+I
+          KLAST=I+KL
           do K=I,KLAST,2
             K1=K+KBIT
             K2=K1+KBIT
             K3=K2+KBIT
-            R=A(K2)*W2(1)-A(K2+1)*W2(2)
-            T=A(K2)*W2(2)+A(K2+1)*W2(1)
-            A(K2)=A(K)-R
-            A(K)=A(K)+R
+            T=A(K2)
+            A(K2)=A(K)-T
+            A(K)=A(K)+T
+            T=A(K2+1)
             A(K2+1)=A(K+1)-T
             A(K+1)=A(K+1)+T
-            R=A(K3)*W3(1)-A(K3+1)*W3(2)
-            T=A(K3)*W3(2)+A(K3+1)*W3(1)
-            AWR=A(K1)*W(1)-A(K1+1)*W(2)
-            AWI=A(K1)*W(2)+A(K1+1)*W(1)
-            A(K3)=AWR-R
-            A(K3+1)=AWI-T
-            A(K1)=AWR+R
-            A(K1+1)=AWI+T
+            T=A(K3)
+            A(K3)=A(K1)-T
+            A(K1)=A(K1)+T
+            T=A(K3+1)
+            A(K3+1)=A(K1+1)-T
+            A(K1+1)=A(K1+1)+T
             T=A(K1)
             A(K1)=A(K)-T
             A(K)=A(K)+T
@@ -693,11 +579,126 @@ C     M3=M(3)
             A(K2+1)=A(K2+1)+T
           end do
         end do
-        JJ=JJDIF+JJ
+        if (JLAST) 310,310,150
+150     JJ=JJDIF+1
+        ILAST=IL+JJ
+        do I=JJ,ILAST,IDIF
+          KLAST=KL+I
+          do K=I,KLAST,2
+            K1=K+KBIT
+            K2=K1+KBIT
+            K3=K2+KBIT
+            R=-A(K2+1)
+            T=A(K2)
+            A(K2)=A(K)-R
+            A(K)=A(K)+R
+            A(K2+1)=A(K+1)-T
+            A(K+1)=A(K+1)+T
+            AWR = A(K1)-A(K1+1)
+            AWI=A(K1+1)+A(K1)
+            R=-A(K3)-A(K3+1)
+            T=A(K3)-A(K3+1)
+            A(K3)=(AWR-R)/ROOT2
+            A(K3+1)=(AWI-T)/ROOT2
+            A(K1)=(AWR+R)/ROOT2
+            A(K1+1)=(AWI+T)/ROOT2
+            T=A(K1)
+            A(K1)=A(K)-T
+            A(K)=A(K)+T
+            T=A(K1+1)
+            A(K1+1)=A(K+1)-T
+            A(K+1)=A(K+1)+T
+            R=-A(K3+1)
+            T=A(K3)
+            A(K3)=A(K2)-R
+            A(K2)=A(K2)+R
+            A(K3+1)=A(K2+1)-T
+            A(K2+1)=A(K2+1)+T
+          end do
+        end do
+        if (JLAST-1) 310,310,170
+170     JJ=JJ+JJDIF
+        do J=2,JLAST
+          I=INV(J+1)
+          IC=NT-I
+          W(1)=S(IC)
+          W(2)=S(I)
+          I2=2*I
+          I2C=NT-I2
+          if (I2C) 200,190,180
+180       W2(1)=S(I2C)
+          W2(2)=S(I2)
+          go to 210
+190       W2(1)=0.
+          W2(2)=1.
+          go to 210
+200       I2CC=I2C+NT
+          I2C=-I2C
+          W2(1)=-S(I2C)
+          W2(2)=S(I2CC)
+210       I3=I+I2
+          I3C=NT-I3
+          if (I3C) 240,230,220
+220       W3(1)=S(I3C)
+          W3(2)=S(I3)
+          go to 280
+230       W3(1)=0.
+          W3(2)=1.
+          go to 280
+240       I3CC=I3C+NT
+          if (I3CC) 270,260,250
+250       I3C=-I3C
+          W3(1)=-S(I3C)
+          W3(2)=S(I3CC)
+          go to 280
+260       W3(1)=-1.
+          W3(2)=0.
+          go to 280
+270       I3CCC=NT+I3CC
+          I3CC=-I3CC
+          W3(1)=-S(I3CCC)
+          W3(2)=-S(I3CC)
+280       ILAST=IL+JJ
+          do I=JJ,ILAST,IDIF
+            KLAST=KL+I
+            do K=I,KLAST,2
+              K1=K+KBIT
+              K2=K1+KBIT
+              K3=K2+KBIT
+              R=A(K2)*W2(1)-A(K2+1)*W2(2)
+              T=A(K2)*W2(2)+A(K2+1)*W2(1)
+              A(K2)=A(K)-R
+              A(K)=A(K)+R
+              A(K2+1)=A(K+1)-T
+              A(K+1)=A(K+1)+T
+              R=A(K3)*W3(1)-A(K3+1)*W3(2)
+              T=A(K3)*W3(2)+A(K3+1)*W3(1)
+              AWR=A(K1)*W(1)-A(K1+1)*W(2)
+              AWI=A(K1)*W(2)+A(K1+1)*W(1)
+              A(K3)=AWR-R
+              A(K3+1)=AWI-T
+              A(K1)=AWR+R
+              A(K1+1)=AWI+T
+              T=A(K1)
+              A(K1)=A(K)-T
+              A(K)=A(K)+T
+              T=A(K1+1)
+              A(K1+1)=A(K+1)-T
+              A(K+1)=A(K+1)+T
+              R=-A(K3+1)
+              T=A(K3)
+              A(K3)=A(K2)-R
+              A(K2)=A(K2)+R
+              A(K3+1)=A(K2+1)-T
+              A(K2+1)=A(K2+1)+T
+            end do
+          end do
+          JJ=JJDIF+JJ
+        end do
+310     JLAST=4*JLAST+3
+320     continue
+330     continue
       end do
-310   JLAST=4*JLAST+3
-320   continue
-330   continue
       NTSQ=NT*NT
       M3MT=M3-MT
       if (M3MT) 350,340,340
@@ -796,10 +797,12 @@ C     IFSET=1
       NTOT=2**M
       NTOT2=2*NTOT
       FN=NTOT
-      do 10 I=2,NTOT2,2
-10    A(I)=-A(I)
-      do 20 I=1,NTOT2
-20    A(I)=A(I)/FN
+      do I=2,NTOT2,2
+        A(I)=-A(I)
+      end do
+      do I=1,NTOT2
+        A(I)=A(I)/FN
+      end do
       call FFT (A,L,INV,S,IFSET,IFERR)
 C
 C     MOVE LAST HALF OF A(J)S DOWN ONE SLOT AND ADD A(N) AT BOTTOM TO
@@ -816,16 +819,17 @@ C     CALCULATE A1PRIMES AND STORE IN FIRST N SLOTS
 C     CALCULATE A2PRIMES AND STORE IN SECOND N SLOTS IN REVERSE ORDER
 C
       K0=NTOT+1
-      do 40 I=1,K0,2
-      K1=NTOT2-I+4
-      AP1RE=.5*(A(I)+A(K1))
-      AP2RE=-.5*(A(I+1)+A(K1+1))
-      AP1IM=.5*(-A(I+1)+A(K1+1))
-      AP2IM=-.5*(A(I)-A(K1))
-      A(I)=AP1RE
-      A(I+1)=AP1IM
-      A(K1)=AP2RE
-40    A(K1+1)=AP2IM
+      do I=1,K0,2
+        K1=NTOT2-I+4
+        AP1RE=.5*(A(I)+A(K1))
+        AP2RE=-.5*(A(I+1)+A(K1+1))
+        AP1IM=.5*(-A(I+1)+A(K1+1))
+        AP2IM=-.5*(A(I)-A(K1))
+        A(I)=AP1RE
+        A(I+1)=AP1IM
+        A(K1)=AP2RE
+        A(K1+1)=AP2IM
+      end do
       NTO=NTOT/2
       NT=NTO+1
       DEL=3.1415927/FLOAT(NTOT)
@@ -835,30 +839,33 @@ C
       CO=1.0
 C
 C     COMPUTE C(J)S FOR J=0 THRU J=N
-      do 50 I=1,NT
-      K6=NTOT2-2*I+5
-      AP2RE=A(K6)*CO+A(K6+1)*SI
-      AP2IM=-A(K6)*SI+A(K6+1)*CO
-      CIRE=.5*(A(2*I-1)+AP2RE)
-      CIIM=.5*(A(2*I)+AP2IM)
-      CNIRE=.5*(A(2*I-1)-AP2RE)
-      CNIIM=.5*(A(2*I)-AP2IM)
-      A(2*I-1)=CIRE
-      A(2*I)=CIIM
-      A(K6)=CNIRE
-      A(K6+1)=-CNIIM
-      SIS=SI
-      SI=SI*SC+CO*SS
-50    CO=CO*SC-SIS*SS
+      do I=1,NT
+        K6=NTOT2-2*I+5
+        AP2RE=A(K6)*CO+A(K6+1)*SI
+        AP2IM=-A(K6)*SI+A(K6+1)*CO
+        CIRE=.5*(A(2*I-1)+AP2RE)
+        CIIM=.5*(A(2*I)+AP2IM)
+        CNIRE=.5*(A(2*I-1)-AP2RE)
+        CNIIM=.5*(A(2*I)-AP2IM)
+        A(2*I-1)=CIRE
+        A(2*I)=CIIM
+        A(K6)=CNIRE
+        A(K6+1)=-CNIIM
+        SIS=SI
+        SI=SI*SC+CO*SS
+        CO=CO*SC-SIS*SS
+      end do
 C
 C     SHIFT C(J)S FOR J=N/2+1 to J=N UP ONE SLOT
-      do 60 I=1,NTOT,2
-      K8=NTOT+4+I
-      A(K8-2)=A(K8)
-60    A(K8-1)=A(K8+1)
-      do 70 I=3,NTOT2,2
-      A(I)=2.*A(I)
-70    A(I+1)= 2.*A(I+1)
+      do I=1,NTOT,2
+        K8=NTOT+4+I
+        A(K8-2)=A(K8)
+        A(K8-1)=A(K8+1)
+      end do
+      do I=3,NTOT2,2
+        A(I)=2.*A(I)
+        A(I+1)= 2.*A(I+1)
+      end do
       return
       end
 C******************************************
@@ -877,13 +884,15 @@ C     IFSET=-1
       A(NN+1)=A(NN-1)
       FN=NTOT
       NTOT3=NTOT2+4
-      do 70 I=3,NTOT2,2
-      A(I)=0.5* A(I)
-   70 A(I+1)= .5*A(I+1)
-      do 60 I=1,NTOT,2
-      K8=NTOT2+2-I
-      A(K8)= A(K8-2)
-   60 A(K8+1)=A(K8-1)
+      do I=3,NTOT2,2
+        A(I)=0.5* A(I)
+        A(I+1)= .5*A(I+1)
+      end do
+      do I=1,NTOT,2
+        K8=NTOT2+2-I
+        A(K8)= A(K8-2)
+        A(K8+1)=A(K8-1)
+      end do
       NTO=NTOT/ 2
       NT=NTO+1
       DEL=3.141592654/FN
@@ -891,45 +900,50 @@ C     IFSET=-1
       SC= COS(DEL)
       SI=0.
       CO =1.0
-      do 50 I=1,NT
-      K6=NTOT2-2*I+5
-      CIRE= A(2*I-1) + A(K6)
-      CIIM=A(2*I)-A(K6+1)
-      CNIRE=(-SI*(A(2*I)+A(K6+1))+CO*(A(2*I-1)-A(K6)))
-      if (SI)62,61,62
-   62 CNIIM=(A(2*I-1)-A(K6)-CO*CNIRE)/SI
-      go to 63
-   61 CNIIM=0.
-   63 A(2*I-1)=CIRE
-      A(2*I)=CIIM
-      A(K6)=CNIRE
-      A(K6+1)=CNIIM
-      SIS=SI
-      SI=SI*SC+CO*SS
-   50 CO=CO*SC-SIS*SS
+      do I=1,NT
+        K6=NTOT2-2*I+5
+        CIRE= A(2*I-1) + A(K6)
+        CIIM=A(2*I)-A(K6+1)
+        CNIRE=(-SI*(A(2*I)+A(K6+1))+CO*(A(2*I-1)-A(K6)))
+        if (SI)62,61,62
+  62    CNIIM=(A(2*I-1)-A(K6)-CO*CNIRE)/SI
+        go to 63
+  61    CNIIM=0.
+  63    A(2*I-1)=CIRE
+        A(2*I)=CIIM
+        A(K6)=CNIRE
+        A(K6+1)=CNIIM
+        SIS=SI
+        SI=SI*SC+CO*SS
+        CO=CO*SC-SIS*SS
+      end do
       KO=NTOT+1
-      do 40 I=1,KO,2
-      K1=NTOT2-I+4
-      AP1RE=A(I)-A(K1+1)
-      AP2RE=-(A(I+1)+A(K1))
-      AP1IM=A(I)+A(K1+1)
-      AP2IM=A(I+1)-A(K1)
-      A(I)=AP1RE
-      A(I+1)=AP2RE
-      A(K1)=AP1IM
-   40 A(K1+1)=AP2IM
+      do I=1,KO,2
+        K1=NTOT2-I+4
+        AP1RE=A(I)-A(K1+1)
+        AP2RE=-(A(I+1)+A(K1))
+        AP1IM=A(I)+A(K1+1)
+        AP2IM=A(I+1)-A(K1)
+        A(I)=AP1RE
+        A(I+1)=AP2RE
+        A(K1)=AP1IM
+        A(K1+1)=AP2IM
+      end do
       NTOP=NTOT2+2
       NT00=NTOT+1
       A(1)=A(NTOT2+3)
       A(2)=A(NTOT2+4)
-   21 do 52 I=NT00,NTOP,2
-      A(I)=A(I+2)
-   52 A(I+1)=A(I+3)
+   21 do I=NT00,NTOP,2
+        A(I)=A(I+2)
+        A(I+1)=A(I+3)
+      end do
       call  FFT(A,L,INV,S,IFSET,IFERR)
-      do 20 I=1,NTOT2
-   20 A(I)=A(I)*FN
-      do 10 I=2,NTOT2,2
-   10 A(I)=-A(I)
+      do I=1,NTOT2
+        A(I)=A(I)*FN
+      end do
+      do I=2,NTOT2,2
+        A(I)=-A(I)
+      end do
       return
       end
 C*************************************
@@ -944,11 +958,12 @@ C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 C
       dimension X(1)
       XMAX = 0.
-      do 1 I = 1,MX
-      XA = ABS(X(I))
-      if (XMAX .gt. XA) go to 1
-      NXMAX = I
-      XMAX = XA
-    1 continue
+      do I = 1,MX
+        XA = ABS(X(I))
+        if (XMAX .le. XA) then
+          NXMAX = I
+          XMAX = XA
+        end if
+      end do
       return
       end
