@@ -215,8 +215,9 @@ C   SAVE VALUES OF X IN AA
   101 DO I = 1,MFOLD
         A(1,I) = REAL(X(I))
         A(2,I) = AIMAG(X(I))
-        IF (LS.EQ.0) GO TO 11
-        X(I) = AX(LS,I)
+        IF (LS .NE. 0) THEN
+          X(I) = AX(LS,I)
+        END IF
       END DO
 C
 C   TRANSFORM VALUES IN X OR AX INTO THE TIME DOMAIN
