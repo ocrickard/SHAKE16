@@ -365,6 +365,7 @@ C
 C   CODED BY I. M. IDRISS  1967
 C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 C
+C     TODO: These arrays need to be checked for size
       dimension XD(2), XV(2), T(3)
       dimension UG(1)
 C
@@ -386,33 +387,36 @@ C
       G2 = E*C
       H1 = WD*G2 - F3*G1
       H2 = WD*G1 + F3*G2
-      do 100 K = 1, KUG
-       Y = K-1
-      DUG = UG(K+1) - UG(K)
-      Z1 = F2*DUG
-      Z2 = F2*UG(K)
-      Z3 = F1*DUG
-      Z4 = Z1/DT
-       B = XD(1) + Z2 -Z3
-       A = F4*XV(1) + F5*B + F4*Z4
-      XD(2) = A*G1 + B*G2 + Z3 - Z2 - Z1
-      XV(2) = A*H1 - B*H2 - Z4
-      XD(1) = XD(2)
-      XV(1) = XV(2)
-      AA = -F6*XV(1) - W2*XD(1)
-       F = ABS(XD(1))
-       G = ABS(XV(1))
-       H = ABS(AA)
-      IF(F .LE. ZD) go to 75
-      T(1) = Y
-       ZD = F
-   75 IF(G .LE. ZV) go to 85
-      T(2) = Y
-       ZV = G
-   85 IF(H .LE. ZA) go to 100
-      T(3) = Y
-       ZA = H
-  100 continue
+      do K = 1, KUG
+        Y = K-1
+        DUG = UG(K+1) - UG(K)
+        Z1 = F2*DUG
+        Z2 = F2*UG(K)
+        Z3 = F1*DUG
+        Z4 = Z1/DT
+        B = XD(1) + Z2 -Z3
+        A = F4*XV(1) + F5*B + F4*Z4
+        XD(2) = A*G1 + B*G2 + Z3 - Z2 - Z1
+        XV(2) = A*H1 - B*H2 - Z4
+        XD(1) = XD(2)
+        XV(1) = XV(2)
+        AA = -F6*XV(1) - W2*XD(1)
+        F = ABS(XD(1))
+        G = ABS(XV(1))
+        H = ABS(AA)
+        if (F .gt. ZD) then
+          T(1) = Y
+          ZD = F
+        end if
+        if (G .gt. ZV) then
+          T(2) = Y
+          ZV = G
+        end if
+        if (H .gt. ZA) then
+          T(3) = Y
+          ZA = H
+        end if
+      end do
       do 110 L = 1, 3
   110 T(L) = DT*T(L)
       write(6,112) PR, (T(L),L=1,3)
@@ -425,7 +429,7 @@ C    ****************************************
 C* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
       dimension A(1),INV(1),S(1),N(3),M(3),NP(3),W(2),W2(2),W3(2)
       EQUIVALENCE (N1,N(1)), (N2,N(2)), (N3,N(3))
-C
+
       M1=M(1)
       M2=M(2)
       M3=M(3)
@@ -862,7 +866,7 @@ C     IFSET=-1
       CIRE= A(2*I-1) + A(K6)
       CIIM=A(2*I)-A(K6+1)
       CNIRE=(-SI*(A(2*I)+A(K6+1))+CO*(A(2*I-1)-A(K6)))
-      IF(SI)62,61,62
+      if (SI)62,61,62
    62 CNIIM=(A(2*I-1)-A(K6)-CO*CNIRE)/SI
       go to 63
    61 CNIIM=0.
