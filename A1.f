@@ -212,33 +212,34 @@ C  ---------------------------------------------------------------------
      2     8.50,    9.00,    9.50,   10.00/
 c ---------------------------------------------------------------------
 C   SAVE VALUES OF X IN AA
-  101 DO 11 I = 1,MFOLD
-      A(1,I) = REAL(X(I))
-      A(2,I) = AIMAG(X(I))
-      IF (LS.EQ.0) GO TO 11
-      X(I) = AX(LS,I)
-   11 CONTINUE
+  101 DO I = 1,MFOLD
+        A(1,I) = REAL(X(I))
+        A(2,I) = AIMAG(X(I))
+        IF (LS.EQ.0) GO TO 11
+        X(I) = AX(LS,I)
+      END DO
 C
 C   TRANSFORM VALUES IN X OR AX INTO THE TIME DOMAIN
       CALL RFSN(X,MX,INV,S,IFERR,-2)
-      DO 13 L = 1,ND
-      IF (NN.GE.5)  NN= 0
-      NN = NN + 1
-      DO 131 I = 1,5
-  131 ID(NN,I) = TITLE(I)
-      DO 132 I = 6,11
-      ID(NN,I) = IDNT(I-5)
-      IF (LS.EQ.0) ID(NN,I) = IBLANK
-  132 CONTINUE
+      DO L = 1,ND
+        IF (NN.GE.5)  NN= 0
+        NN = NN + 1
+        DO 131 I = 1,5
+  131   ID(NN,I) = TITLE(I)
+        DO 132 I = 6,11
+        ID(NN,I) = IDNT(I-5)
+        IF (LS.EQ.0) ID(NN,I) = IBLANK
+  132   CONTINUE
 C
-C   COMPUTE RESPONSE FOR ACCELERATION VALUES IN AA(1, )FOR THE PERIODS
-C   GIVEN IN T( )
-      CALL  DRCTSP(NN,MMA, DT, GGT, ID, ZLD(L),NNM,X)
-   13 CONTINUE
+C       COMPUTE RESPONSE FOR ACCELERATION VALUES IN AA(1, )FOR THE PERIODS
+C       GIVEN IN T( )
+        CALL  DRCTSP(NN,MMA, DT, GGT, ID, ZLD(L),NNM,X)
+      END DO
 C
 C   GIVE X BACK ORIGINAL VALUES
-      DO 12 I = 1,MFOLD
-   12 X(I) = CMPLX(A(1,I),A(2,I))
+      DO I = 1,MFOLD
+        X(I) = CMPLX(A(1,I),A(2,I))
+      END DO
 C     ==============================================================
   134 NN = 0
       RETURN
