@@ -175,10 +175,10 @@ C -------------------------------------------------------------------
    60   FORMAT(' File from which periods were read: ' A32)
         OPEN(8,FILE=FPERIOD,STATUS='OLD')
         READ (8,4) NLINES, NNM
-        DO 10 I = 1, NLINES
-        READ(8,*) headerd
-        WRITE(6,*) headerd
-   10   CONTINUE
+        DO I = 1, NLINES
+          READ(8,*) headerd
+          WRITE(6,*) headerd
+        END DO
         READ(8,*) (T(I), I=1, NNM)
         CLOSE(8)
         GO TO 101
