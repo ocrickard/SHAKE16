@@ -417,8 +417,9 @@ C
           ZA = H
         end if
       end do
-      do 110 L = 1, 3
-  110 T(L) = DT*T(L)
+      do L = 1, 3
+        T(L) = DT*T(L)
+      end do
       write(6,112) PR, (T(L),L=1,3)
   112 format(5X,5HPER = F5.2,5X,19HTIMES FOR MAXIMA -- ,3X,
      14HTD = F8.4,3X,4HTV = F8.4,3X,4HTA = F8.4)
