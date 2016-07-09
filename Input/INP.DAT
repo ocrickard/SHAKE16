@@ -50,7 +50,7 @@ Option 2 -- Soil Profile
    17    3                               .010      .140     4000.
 Option 3 -- input motion:
     3
- 1900 4096   .02     DIAM.ACC                     (8f10.6)
+ 1900 4096   .02    DIAM.ACC                      (8f10.6)
              .10      25.         3    8
 Option 4 -- sublayer for input motion {within (1) or outcropping (0):
     4
