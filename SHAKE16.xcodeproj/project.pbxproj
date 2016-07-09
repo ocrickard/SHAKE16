@@ -6,10 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		B1F11EC91D31419000180392 /* A1.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = A1.f; sourceTree = "<group>"; };
+		B1F11ECA1D31419000180392 /* B1.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = B1.f; sourceTree = "<group>"; };
+		B1F11ECB1D31419000180392 /* C1.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = C1.f; sourceTree = "<group>"; };
+		B1F11ECC1D31419000180392 /* Main.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = Main.f; sourceTree = "<group>"; };
+		B1F11ECD1D31419000180392 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		B1F11EBE1D31410E00180392 = {
 			isa = PBXGroup;
 			children = (
+				B1F11EC91D31419000180392 /* A1.f */,
+				B1F11ECA1D31419000180392 /* B1.f */,
+				B1F11ECB1D31419000180392 /* C1.f */,
+				B1F11ECC1D31419000180392 /* Main.f */,
+				B1F11ECD1D31419000180392 /* makefile */,
 			);
 			sourceTree = "<group>";
 		};
@@ -23,6 +36,7 @@
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/ocrickard/src/SHAKE16;
 			dependencies = (
 			);
 			name = SHAKE16;
@@ -175,6 +189,7 @@
 				B1F11EC81D31410E00180392 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
