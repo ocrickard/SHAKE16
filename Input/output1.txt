@@ -1,0 +1,1044 @@
+  *****************************************************
+  * SHAKE  --   A COMPUTER PROGRAM FOR EARTHQUAKE RESPONSE  *
+  *             ANALYSIS OF HORIZONTALLY LAYERED SITES      *
+  *             by: Per B. Schnabel & John Lysmer -- 1970   *
+  * ------------------------------------------------------- *
+  * shake85     IBM-PC version of SHAKE                     *
+  *             by: S.S. (Willie) Lai, January 1985         *
+  * ------------------------------------------------------- *
+  * shake88   : New modulus reduction curves for clays added*
+  *             using results from Sun et al (1988)         *
+  *             by: J. I. Sun & Ramin Golesorkhi            *
+  *             February 26, 1988                           *
+  * ------------------------------------------------------- *
+  * SHAKE90/91: Adjust last iteration; Input now is either  *
+  *             Gmax or max Vs; up to 13 material types can *
+  *             be specified by user; up to 50 Layers can   *
+  *             be specified; object motion can be read in  *
+  *             from a separate file and can have user      *
+  *             specified format; Different periods for     *
+  *             response spectral calculations; options     *
+  *             are renumbered; and general cleanup         *
+  *             by: J. I. Sun, I. M. Idriss & P. Dirrim     *
+  *             June 1990 - February 1991                   *
+  * ------------------------------------------------------- *
+  * SHAKE91   : General cleanup and finalization of input/  *
+  *             output format ... etc                       *
+  *             by: I. M. Idriss                            *
+  *             December 1991                               *
+  ***********************************************************
+  MAX. NUMBER OF TERMS IN FOURIER TRANSFORM =      4096
+  NECESSARY LENGTH OF BLANK COMMON X        =     25619
+     Option NO.    1   is started.
+
+1******   OPTION  1  ***  READ RELATION BETWEEN SOIL PROPERTIES AND STRAIN   
+
+ **********************
+  MATERIAL TYPE NO. 1
+ **********************
+
+ CURVE NO.  1:      #1 modulus for clay (seed & sun 1989) upper range      
+ CURVE NO.  2:        damping for clay (Idriss 1990) -                     
+
+
+      CURVE NO. 1              CURVE NO. 2    
+  ===================       ==================
+    STRAIN    G/Gmax         STRAIN    DAMPING
+  --------   -------        --------  --------
+    0.0001     1.000         0.0001      0.24
+    0.0003     1.000         0.0003      0.42
+    0.0010     1.000         0.0010      0.80
+    0.0030     0.981         0.0030      1.40
+    0.0100     0.941         0.0100      2.80
+    0.0300     0.847         0.0300      5.10
+    0.1000     0.656         0.1000      9.80
+    0.3000     0.438         0.3000     15.50
+    1.0000     0.238         1.0000     21.00
+    3.0000     0.144         3.1600     25.00
+   10.0000     0.110        10.0000     28.00
+
+ **********************
+  MATERIAL TYPE NO. 2
+ **********************
+
+ CURVE NO.  3:      #2 modulus for sand (seed & idriss 1970) - upper Range 
+ CURVE NO.  4:        damping for sand (Idriss 1990) - (about LRng from SI 
+
+
+      CURVE NO. 3              CURVE NO. 4    
+  ===================       ==================
+    STRAIN    G/Gmax         STRAIN    DAMPING
+  --------   -------        --------  --------
+    0.0001     1.000         0.0001      0.24
+    0.0003     1.000         0.0003      0.42
+    0.0010     0.990         0.0010      0.80
+    0.0030     0.960         0.0030      1.40
+    0.0100     0.850         0.0100      2.80
+    0.0300     0.640         0.0300      5.10
+    0.1000     0.370         0.1000      9.80
+    0.3000     0.180         0.3000     15.50
+    1.0000     0.080         1.0000     21.00
+    3.0000     0.050         3.0000     25.00
+   10.0000     0.035        10.0000     28.00
+
+ **********************
+  MATERIAL TYPE NO. 3
+ **********************
+
+ CURVE NO.  5:       #3 ATTENUATION OF  ROCK  AVERAGE                      
+ CURVE NO.  6:       DAMPING IN ROCK                                       
+
+
+      CURVE NO. 5              CURVE NO. 6    
+  ===================       ==================
+    STRAIN    G/Gmax         STRAIN    DAMPING
+  --------   -------        --------  --------
+    0.0001     1.000         0.0001      0.40
+    0.0003     1.000         0.0010      0.80
+    0.0010     0.988         0.0100      1.50
+    0.0030     0.952         0.1000      3.00
+    0.0100     0.900         1.0000      4.60
+    0.0300     0.810         0.0000      0.00
+    0.1000     0.725         0.0000      0.00
+    1.0000     0.550         0.0000      0.00
+     Option NO.    1   has been concluded.
+     Option NO.    2   is started.
+
+1******   OPTION  2  ***  READ SOIL PROFILE                                  
+ NEW SOIL PROFILE NO.   1      IDENTIFICATION   Example -- 150-ft layer; input:Diam
+ NUMBER OF LAYERS                  17          DEPTH TO BEDROCK        150.00
+
+  NO. TYPE  THICKNESS   DEPTH  Tot. PRESS.  MODULUS  DAMPING   UNIT WT.  SHEAR VEL
+              (ft)      (ft)      (ksf)       (ksf)             (kcf)    (fps)
+   1    2      5.00      2.50      0.31       3882.   0.050    0.125    1000.0
+   2    2      5.00      7.50      0.78       3144.   0.050    0.125     900.0
+   3    2     10.00     15.00      1.25       3144.   0.050    0.125     900.0
+   4    2     10.00     25.00      1.88       3503.   0.050    0.125     950.0
+   5    1     10.00     35.00      2.50       3882.   0.050    0.125    1000.0
+   6    1     10.00     45.00      3.13       3882.   0.050    0.125    1000.0
+   7    1     10.00     55.00      3.75       4697.   0.050    0.125    1100.0
+   8    1     10.00     65.00      4.38       4697.   0.050    0.125    1100.0
+   9    2     10.00     75.00      5.03       6823.   0.050    0.130    1300.0
+  10    2     10.00     85.00      5.71       6823.   0.050    0.130    1300.0
+  11    2     10.00     95.00      6.38       7913.   0.050    0.130    1400.0
+  12    2     10.00    105.00      7.06       7913.   0.050    0.130    1400.0
+  13    2     10.00    115.00      7.74       9084.   0.050    0.130    1500.0
+  14    2     10.00    125.00      8.41       9084.   0.050    0.130    1500.0
+  15    2     10.00    135.00      9.09      10335.   0.050    0.130    1600.0
+  16    2     10.00    145.00      9.76      13081.   0.050    0.130    1800.0
+  17   BASE                                  69565.   0.010    0.140    4000.0
+
+  PERIOD = 0.48 FROM AVERAGE SHEAR VELOCITY =   1253.
+
+
+  FREQUENCY    AMPLITUDE
+ MAXIMUM AMPLIFICATION =  13.80
+ FOR FREQUENCY         =   2.32 C/SEC.
+     PERIOD            =   0.43 SEC.
+     Option NO.    2   has been concluded.
+     Option NO.    3   is started.
+
+1******   OPTION  3  ***  READ INPUT MOTION                                  
+
+  FILE NAME FOR INPUT MOTION = DIAM.ACC                      
+    NO. OF INPUT ACC. POINTS =  1900
+   NO. OF POINTS USED IN FFT =  4096
+        NO. OF HEADING LINES =     3
+      NO. OF POINTS PER LINE =     8
+  TIME STEP FOR INPUT MOTION = 0.0200
+  format FOR OF TIME HISTORY = (8f10.6)    
+
+
+  READING INPUT MOTION FROM ----> DIAM.ACC                      
+  format OF INPUT MOTION USED --> (8f10.6)    
+
+ ***** H E A D E R   
+"Loma P. Eqk","Diamond Hts","H1_90","init. vel:"," .307 c/s","disp: -0.016 cm"  
+"Total No. of Points :",2000,"@ DT =",.02                                       
+"Peak Acceleration (g) =",.1128945,"@ Time (sec) :",10.92                       
+ **  FIRST & LAST 5 LINES OF INPUT MOTION *****
+
+     1 -0.001694-0.001668-0.000086-0.001356-0.000678 0.000700-0.001209-0.000604
+     2  0.000730 0.000737 0.002496 0.004583 0.001644 0.001377 0.002408-0.000352
+     3 -0.001073-0.000359-0.000486 0.000344 0.000767-0.002507-0.003164-0.002890
+     4 -0.004086 0.000143 0.004340 0.003943 0.002350-0.001087-0.002345 0.001716
+     5 -0.001943-0.007436-0.004493 0.000827 0.002915 0.003241 0.003055 0.002658
+   ........ INPUT MOTION READ NOT ECHOED...........
+   234 -0.000885-0.000806-0.001026-0.000795-0.001049-0.000340-0.000016-0.000647
+   235 -0.000515 0.000588-0.000315-0.000794-0.001081-0.000293 0.001415 0.001959
+   236  0.000800-0.000751 0.000743 0.000708 0.000867-0.000101-0.000805-0.001058
+   237 -0.001011-0.001037-0.001032-0.000992 0.001206 0.001623 0.001755 0.000918
+   238 -0.000949-0.000830-0.001072-0.000940 0.000000 0.000000 0.000000 0.000000
+
+ MAXIMUM ACCELERATION =  0.11289
+ AT TIME              = 10.92 SEC
+ THE VALUES WILL BE MULTIPLIED BY A FACTOR =  0.886
+ TO GIVE NEW MAXIMUM ACCELERATION          =  0.10000
+ MEAN SQUARE FREQUENCY =       2.52 C/SEC.
+  MAX ACCELERATION =    0.10000 FOR FREQUENCIES REMOVED ABOVE      25.00 C/SEC.
+     Option NO.    3   has been concluded.
+     Option NO.    4   is started.
+1******   OPTION  4  ***  READ WHERE OBJECT MOTION IS GIVEN                  
+   OBJECT MOTION IN LAYER NUMBER  17 OUTCROPPING
+     Option NO.    4   has been concluded.
+     Option NO.    5   is started.
+
+1******   OPTION  5  ***  OBTAIN STRAIN COMPATIBLE SOIL PROPERTIES           
+  MAXIMUM NUMBER OF ITERATIONS                =     8
+  FACTOR FOR UNIFORM STRAIN IN TIME DOMAIN    =   0.50
+
+
+
++              ITERATION NUMBER  1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  1
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00074 0.007  0.050   -607.2    3852.7    3882.0     -0.8   1.000
+  2  2    7.5 0.00275 0.014  0.050   -269.5    3026.0    3144.4     -3.9   1.000
+  3  2   15.0 0.00547 0.021  0.050   -138.3    2846.2    3144.4    -10.5   1.000
+  4  2   25.0 0.00804 0.025  0.050    -96.4    3047.8    3503.5    -15.0   1.000
+  5  1   35.0 0.00991 0.028  0.050    -79.2    3654.1    3882.0     -6.2   1.000
+  6  1   45.0 0.01236 0.032  0.050    -54.1    3582.5    3882.0     -8.4   1.000
+  7  1   55.0 0.01204 0.032  0.050    -56.8    4345.4    4697.2     -8.1   1.000
+  8  1   65.0 0.01367 0.035  0.050    -44.7    4294.4    4697.2     -9.4   1.000
+  9  2   75.0 0.01041 0.029  0.050    -73.4    5747.2    6823.0    -18.7   1.000
+ 10  2   85.0 0.01130 0.031  0.050    -63.6    5639.9    6823.0    -21.0   1.000
+ 11  2   95.0 0.01040 0.029  0.050    -73.5    6666.8    7913.0    -18.7   1.000
+ 12  2  105.0 0.01094 0.030  0.050    -67.4    6590.7    7913.0    -20.1   1.000
+ 13  2  115.0 0.00988 0.028  0.050    -79.4    7730.9    9083.9    -17.5   1.000
+ 14  2  125.0 0.01013 0.028  0.050    -76.8    7698.0    9083.9    -18.0   1.000
+ 15  2  135.0 0.00903 0.027  0.050    -86.5    8881.4   10335.4    -16.4   1.000
+ 16  2  145.0 0.00716 0.024  0.050   -107.3   11517.2   13080.7    -13.6   1.000
++              ITERATION NUMBER  2
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  2
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00079 0.007  0.007      2.8    3850.6    3852.7     -0.1   0.992
+  2  2    7.5 0.00303 0.014  0.014      4.1    3015.8    3026.0     -0.3   0.962
+  3  2   15.0 0.00640 0.023  0.021      8.0    2801.0    2846.2     -1.6   0.905
+  4  2   25.0 0.00980 0.028  0.025      8.3    2984.4    3047.8     -2.1   0.870
+  5  1   35.0 0.01117 0.030  0.028      8.0    3616.3    3654.1     -1.0   0.941
+  6  1   45.0 0.01419 0.035  0.032      8.2    3536.8    3582.5     -1.3   0.923
+  7  1   55.0 0.01377 0.035  0.032      8.1    4291.6    4345.4     -1.3   0.925
+  8  1   65.0 0.01577 0.038  0.035      8.0    4237.0    4294.4     -1.4   0.914
+  9  2   75.0 0.01300 0.033  0.029     13.9    5457.8    5747.2     -5.3   0.842
+ 10  2   85.0 0.01431 0.036  0.031     13.9    5332.1    5639.9     -5.8   0.827
+ 11  2   95.0 0.01285 0.033  0.029     13.3    6347.2    6666.8     -5.0   0.843
+ 12  2  105.0 0.01357 0.034  0.030     13.1    6263.9    6590.7     -5.2   0.833
+ 13  2  115.0 0.01195 0.032  0.028     12.2    7411.7    7730.9     -4.3   0.851
+ 14  2  125.0 0.01239 0.032  0.028     12.9    7349.5    7698.0     -4.7   0.847
+ 15  2  135.0 0.01100 0.030  0.027     10.6    8597.0    8881.4     -3.3   0.859
+ 16  2  145.0 0.00864 0.026  0.024      8.3   11293.8   11517.2     -2.0   0.880
++              ITERATION NUMBER  3
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  3
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00077 0.007  0.007     -1.1    3851.4    3850.6      0.0   0.992
+  2  2    7.5 0.00296 0.014  0.014     -1.3    3019.6    3015.8      0.1   0.959
+  3  2   15.0 0.00636 0.023  0.023     -0.3    2802.9    2801.0      0.1   0.891
+  4  2   25.0 0.00978 0.028  0.028     -0.1    2985.0    2984.4      0.0   0.852
+  5  1   35.0 0.01102 0.030  0.030     -0.9    3620.5    3616.3      0.1   0.932
+  6  1   45.0 0.01407 0.035  0.035     -0.5    3539.6    3536.8      0.1   0.911
+  7  1   55.0 0.01366 0.035  0.035     -0.5    4294.7    4291.6      0.1   0.914
+  8  1   65.0 0.01569 0.037  0.038     -0.3    4239.1    4237.0      0.0   0.902
+  9  2   75.0 0.01344 0.034  0.033      2.1    5413.7    5457.8     -0.8   0.800
+ 10  2   85.0 0.01487 0.036  0.036      2.2    5281.8    5332.1     -1.0   0.781
+ 11  2   95.0 0.01324 0.034  0.033      1.9    6301.6    6347.2     -0.7   0.802
+ 12  2  105.0 0.01400 0.035  0.034      1.9    6217.1    6263.9     -0.8   0.792
+ 13  2  115.0 0.01227 0.032  0.032      1.7    7365.9    7411.7     -0.6   0.816
+ 14  2  125.0 0.01275 0.033  0.032      1.8    7300.1    7349.5     -0.7   0.809
+ 15  2  135.0 0.01114 0.030  0.030      0.9    8570.9    8597.0     -0.3   0.832
+ 16  2  145.0 0.00865 0.026  0.026      0.1   11292.2   11293.8     -0.0   0.863
++              ITERATION NUMBER  4
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  4
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00077 0.007  0.007     -0.2    3851.5    3851.4      0.0   0.992
+  2  2    7.5 0.00296 0.014  0.014     -0.1    3019.9    3019.6      0.0   0.960
+  3  2   15.0 0.00634 0.023  0.023     -0.1    2803.6    2802.9      0.0   0.891
+  4  2   25.0 0.00977 0.028  0.028     -0.1    2985.6    2985.0      0.0   0.852
+  5  1   35.0 0.01100 0.030  0.030     -0.2    3621.4    3620.5      0.0   0.933
+  6  1   45.0 0.01404 0.035  0.035     -0.1    3540.3    3539.6      0.0   0.912
+  7  1   55.0 0.01362 0.034  0.035     -0.2    4295.8    4294.7      0.0   0.914
+  8  1   65.0 0.01567 0.037  0.037     -0.1    4239.6    4239.1      0.0   0.902
+  9  2   75.0 0.01353 0.034  0.034      0.4    5405.2    5413.7     -0.2   0.793
+ 10  2   85.0 0.01501 0.037  0.036      0.5    5269.8    5281.8     -0.2   0.774
+ 11  2   95.0 0.01333 0.034  0.034      0.4    6291.3    6301.6     -0.2   0.796
+ 12  2  105.0 0.01410 0.035  0.035      0.4    6206.5    6217.1     -0.2   0.786
+ 13  2  115.0 0.01232 0.032  0.032      0.3    7358.5    7365.9     -0.1   0.811
+ 14  2  125.0 0.01280 0.033  0.033      0.3    7292.1    7300.1     -0.1   0.804
+ 15  2  135.0 0.01115 0.030  0.030      0.1    8569.5    8570.9     -0.0   0.829
+ 16  2  145.0 0.00865 0.026  0.026     -0.0   11292.4   11292.2      0.0   0.863
++              ITERATION NUMBER  5
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  5
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00077 0.007  0.007     -0.0    3851.5    3851.5      0.0   0.992
+  2  2    7.5 0.00295 0.014  0.014     -0.0    3020.0    3019.9      0.0   0.960
+  3  2   15.0 0.00634 0.023  0.023     -0.0    2803.8    2803.6      0.0   0.892
+  4  2   25.0 0.00976 0.028  0.028     -0.0    2985.7    2985.6      0.0   0.852
+  5  1   35.0 0.01099 0.030  0.030     -0.0    3621.6    3621.4      0.0   0.933
+  6  1   45.0 0.01403 0.035  0.035     -0.0    3540.4    3540.3      0.0   0.912
+  7  1   55.0 0.01362 0.034  0.034     -0.0    4296.0    4295.8      0.0   0.915
+  8  1   65.0 0.01566 0.037  0.037     -0.0    4239.7    4239.6      0.0   0.903
+  9  2   75.0 0.01355 0.034  0.034      0.1    5403.3    5405.2     -0.0   0.792
+ 10  2   85.0 0.01504 0.037  0.037      0.1    5266.9    5269.8     -0.1   0.772
+ 11  2   95.0 0.01335 0.034  0.034      0.1    6288.9    6291.3     -0.0   0.795
+ 12  2  105.0 0.01412 0.035  0.035      0.1    6204.1    6206.5     -0.0   0.784
+ 13  2  115.0 0.01233 0.032  0.032      0.0    7357.4    7358.5     -0.0   0.810
+ 14  2  125.0 0.01281 0.033  0.033      0.0    7291.0    7292.1     -0.0   0.803
+ 15  2  135.0 0.01115 0.030  0.030     -0.0    8570.0    8569.5      0.0   0.829
+ 16  2  145.0 0.00865 0.026  0.026     -0.0   11292.5   11292.4      0.0   0.863
++              ITERATION NUMBER  6
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  6
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00077 0.007  0.007     -0.0    3851.5    3851.5      0.0   0.992
+  2  2    7.5 0.00295 0.014  0.014     -0.0    3020.0    3020.0      0.0   0.960
+  3  2   15.0 0.00634 0.023  0.023     -0.0    2803.8    2803.8      0.0   0.892
+  4  2   25.0 0.00976 0.028  0.028     -0.0    2985.8    2985.7      0.0   0.852
+  5  1   35.0 0.01099 0.030  0.030     -0.0    3621.6    3621.6      0.0   0.933
+  6  1   45.0 0.01403 0.035  0.035     -0.0    3540.4    3540.4      0.0   0.912
+  7  1   55.0 0.01362 0.034  0.034     -0.0    4296.0    4296.0      0.0   0.915
+  8  1   65.0 0.01566 0.037  0.037     -0.0    4239.8    4239.7      0.0   0.903
+  9  2   75.0 0.01355 0.034  0.034      0.0    5402.8    5403.3     -0.0   0.792
+ 10  2   85.0 0.01505 0.037  0.037      0.0    5266.2    5266.9     -0.0   0.772
+ 11  2   95.0 0.01336 0.034  0.034      0.0    6288.4    6288.9     -0.0   0.795
+ 12  2  105.0 0.01413 0.035  0.035      0.0    6203.6    6204.1     -0.0   0.784
+ 13  2  115.0 0.01233 0.032  0.032      0.0    7357.2    7357.4     -0.0   0.810
+ 14  2  125.0 0.01281 0.033  0.033      0.0    7290.8    7291.0     -0.0   0.803
+ 15  2  135.0 0.01115 0.030  0.030     -0.0    8570.3    8570.0      0.0   0.829
+ 16  2  145.0 0.00865 0.026  0.026     -0.0   11292.5   11292.5      0.0   0.863
++              ITERATION NUMBER  7
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  7
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00077 0.007  0.007     -0.0    3851.5    3851.5      0.0   0.992
+  2  2    7.5 0.00295 0.014  0.014     -0.0    3020.0    3020.0      0.0   0.960
+  3  2   15.0 0.00634 0.023  0.023     -0.0    2803.8    2803.8      0.0   0.892
+  4  2   25.0 0.00976 0.028  0.028     -0.0    2985.8    2985.8      0.0   0.852
+  5  1   35.0 0.01099 0.030  0.030     -0.0    3621.6    3621.6      0.0   0.933
+  6  1   45.0 0.01403 0.035  0.035     -0.0    3540.5    3540.4      0.0   0.912
+  7  1   55.0 0.01362 0.034  0.034     -0.0    4296.0    4296.0      0.0   0.915
+  8  1   65.0 0.01566 0.037  0.037     -0.0    4239.8    4239.8      0.0   0.903
+  9  2   75.0 0.01356 0.034  0.034      0.0    5402.7    5402.8     -0.0   0.792
+ 10  2   85.0 0.01505 0.037  0.037      0.0    5266.0    5266.2     -0.0   0.772
+ 11  2   95.0 0.01336 0.034  0.034      0.0    6288.2    6288.4     -0.0   0.795
+ 12  2  105.0 0.01413 0.035  0.035      0.0    6203.4    6203.6     -0.0   0.784
+ 13  2  115.0 0.01233 0.032  0.032      0.0    7357.2    7357.2     -0.0   0.810
+ 14  2  125.0 0.01281 0.033  0.033     -0.0    7290.8    7290.8      0.0   0.803
+ 15  2  135.0 0.01115 0.030  0.030     -0.0    8570.4    8570.3      0.0   0.829
+ 16  2  145.0 0.00865 0.026  0.026     -0.0   11292.6   11292.5      0.0   0.863
++              ITERATION NUMBER  8
+1
+     EARTHQUAKE   - DIAM.ACC                      
+     SOIL PROFILE -  Example -- 150-ft layer; input:Diam
+
+  ITERATION NUMBER  8
+
+  VALUES IN TIME DOMAIN
+
+ NO TYPE DEPTH  UNIFRM. <---- DAMPING ---->   <---- SHEAR MODULUS ----->    G/Go
+         (FT)   STRAIN  NEW    USED   ERROR      NEW       USED    ERROR   RATIO
+--- ---- ----  ------- ----- ------  ------   -------   -------   ------   -----
+  1  2    2.5 0.00077 0.007  0.007     -0.0    3851.5    3851.5      0.0   0.992
+  2  2    7.5 0.00295 0.014  0.014     -0.0    3020.0    3020.0      0.0   0.960
+  3  2   15.0 0.00634 0.023  0.023     -0.0    2803.8    2803.8      0.0   0.892
+  4  2   25.0 0.00976 0.028  0.028     -0.0    2985.8    2985.8      0.0   0.852
+  5  1   35.0 0.01099 0.030  0.030     -0.0    3621.7    3621.6      0.0   0.933
+  6  1   45.0 0.01403 0.035  0.035     -0.0    3540.5    3540.5      0.0   0.912
+  7  1   55.0 0.01362 0.034  0.034     -0.0    4296.0    4296.0      0.0   0.915
+  8  1   65.0 0.01566 0.037  0.037     -0.0    4239.8    4239.8      0.0   0.903
+  9  2   75.0 0.01356 0.034  0.034      0.0    5402.7    5402.7     -0.0   0.792
+ 10  2   85.0 0.01505 0.037  0.037      0.0    5266.0    5266.0     -0.0   0.772
+ 11  2   95.0 0.01336 0.034  0.034      0.0    6288.2    6288.2     -0.0   0.795
+ 12  2  105.0 0.01413 0.035  0.035      0.0    6203.4    6203.4     -0.0   0.784
+ 13  2  115.0 0.01233 0.032  0.032     -0.0    7357.2    7357.2      0.0   0.810
+ 14  2  125.0 0.01281 0.033  0.033     -0.0    7290.8    7290.8      0.0   0.803
+ 15  2  135.0 0.01115 0.030  0.030     -0.0    8570.4    8570.4      0.0   0.829
+ 16  2  145.0 0.00865 0.026  0.026     -0.0   11292.6   11292.6      0.0   0.863
+
+  VALUES IN TIME DOMAIN
+
+  LAYER  TYPE      THICKNESS          DEPTH     MAX STRAIN     MAX STRESS          TIME
+                       FT              FT         PRCNT            PSF             SEC
+
+     1     2            5.0            2.5        0.00154          59.43          11.30
+     2     2            5.0            7.5        0.00591         178.41          11.30
+     3     2           10.0           15.0        0.01267         355.34          11.30
+     4     2           10.0           25.0        0.01952         582.77          11.30
+     5     1           10.0           35.0        0.02198         795.90          11.30
+     6     1           10.0           45.0        0.02806         993.53          11.30
+     7     1           10.0           55.0        0.02723        1169.91          11.30
+     8     1           10.0           65.0        0.03132        1328.02          11.30
+     9     2           10.0           75.0        0.02711        1464.83          11.30
+    10     2           10.0           85.0        0.03011        1585.55          11.30
+    11     2           10.0           95.0        0.02671        1679.90          11.30
+    12     2           10.0          105.0        0.02826        1752.80          11.30
+    13     2           10.0          115.0        0.02466        1814.66          11.52
+    14     2           10.0          125.0        0.02563        1868.38          11.52
+    15     2           10.0          135.0        0.02230        1910.82          11.52
+    16     2           10.0          145.0        0.01729        1952.63          11.54
+
+  PERIOD = 0.52 FROM AVERAGE SHEAR VELOCITY =   1153.
+
+
+  FREQUENCY    AMPLITUDE
+ MAXIMUM AMPLIFICATION =  20.47
+ FOR FREQUENCY         =   2.11 C/SEC.
+     PERIOD            =   0.47 SEC.
+     Option NO.    5   has been concluded.
+     Option NO.    6   is started.
+
+1******   OPTION  6  ***  COMPUTE MOTION IN NEW SUBLAYERS                    
+
+   EARTHQUAKE -DIAM.ACC                      
+  SOIL DEPOSIT -  Example -- 150-ft layer; input:Diam
+     LAYER           DEPTH        MAX. ACC.          TIME      MEAN SQ. FR.         ACC. RATIO       TH SAVED		,  
+                      FT            G                SEC          C/SEC             QUIET ZONE       ACC. RECORD
+     OUTCR.            0.0        0.19040          11.28           2.42               0.000                 512
+     WITHIN            5.0        0.19006          11.28           2.40               0.000                   0
+     WITHIN           10.0        0.18873          11.28           2.35               0.000                   0
+     WITHIN           20.0        0.18258          11.28           2.23               0.000                   0
+     WITHIN           30.0        0.17209          11.28           2.19               0.000                   0
+     WITHIN           40.0        0.15947          11.28           2.19               0.000                   0
+     WITHIN           50.0        0.14288          11.28           2.17               0.000                   0
+     WITHIN           60.0        0.12653          11.28           2.13               0.000                   0
+     WITHIN           70.0        0.11049          11.52           2.12               0.000                   0
+     WITHIN           80.0        0.09839          11.54           2.14               0.000                   0
+     WITHIN           90.0        0.08997          11.56           2.19               0.000                   0
+     WITHIN          100.0        0.08268          11.56           2.24               0.000                   0
+     WITHIN          110.0        0.08559          10.94           2.32               0.000                   0
+     WITHIN          120.0        0.08546          10.94           2.39               0.000                   0
+     WITHIN          130.0        0.08201          10.94           2.45               0.000                   0
+     Option NO.    6   has been concluded.
+     Option NO.    6   is started.
+
+1******   OPTION  6  ***  COMPUTE MOTION IN NEW SUBLAYERS                    
+
+   EARTHQUAKE -DIAM.ACC                      
+  SOIL DEPOSIT -  Example -- 150-ft layer; input:Diam
+     LAYER           DEPTH        MAX. ACC.          TIME      MEAN SQ. FR.         ACC. RATIO       TH SAVED		,  
+                      FT            G                SEC          C/SEC             QUIET ZONE       ACC. RECORD
+     WITHIN          140.0        0.07769          10.92           2.48               0.000                   0
+     WITHIN          150.0        0.07616          10.92           2.48               0.000                 512
+     OUTCR.          150.0        0.10000          10.92           2.52               0.000                   0
+     Option NO.    6   has been concluded.
+     Option NO.    7   is started.
+
+1******   OPTION  7  ***  COMPUTE STRESS/STRAIN HISTORY                      
+
+  COMPUTE STRESS OR STRAIN HISTORY AT THE TOP OF  LAYER    4
+  SCALE FOR PLOTTING     0.0000
+ IDENTIFICATION -  -- stress in level 4         
+
+  COMPUTE STRESS OR STRAIN HISTORY AT THE TOP OF  LAYER    4
+  SCALE FOR PLOTTING     0.0000
+ IDENTIFICATION -  -- strain in level 4         
+     Option NO.    7   has been concluded.
+     Option NO.    7   is started.
+
+1******   OPTION  7  ***  COMPUTE STRESS/STRAIN HISTORY                      
+
+  COMPUTE STRESS OR STRAIN HISTORY AT THE TOP OF  LAYER    8
+  SCALE FOR PLOTTING     0.0000
+ IDENTIFICATION -  -- stress in level 8         
+
+  COMPUTE STRESS OR STRAIN HISTORY AT THE TOP OF  LAYER    8
+  SCALE FOR PLOTTING     0.0000
+ IDENTIFICATION -  -- strain in level 8         
+     Option NO.    7   has been concluded.
+     Option NO.    9   is started.
+
+1******   OPTION  9  ***  COMPUTE RESPONSE SPECTRUM                          
+  RESPONSE SPECTRUM ANALYSIS FOR LAYER NUMBER        1
+ CALCULATED FOR DAMPING        0.050
+
+     TIMES AT WHICH MAX. SPECTRAL VALUES OCCUR
+          TD = TIME FOR MAX. RELATIVE DISP.
+          TV = TIME FOR MAX. RELATIVE VEL. 
+          TA = TIME FOR MAX. ABSOLUTE ACC. 
+     DAMPING RATIO = 0.05
+     PER = 0.01     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.2800   TA = 11.4800
+     PER = 0.03     TIMES FOR MAXIMA --   TD = 11.3200   TV = 11.2800   TA = 11.4800
+     PER = 0.04     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.0600   TA = 11.4800
+     PER = 0.05     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.2800   TA = 11.3000
+     PER = 0.06     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.2800   TA = 11.3000
+     PER = 0.07     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.3200   TA = 11.3000
+     PER = 0.08     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.2800   TA = 11.3000
+     PER = 0.09     TIMES FOR MAXIMA --   TD = 11.3200   TV = 11.3400   TA = 11.3200
+     PER = 0.10     TIMES FOR MAXIMA --   TD = 11.3200   TV = 11.3000   TA = 11.3200
+     PER = 0.11     TIMES FOR MAXIMA --   TD = 11.5000   TV = 11.3600   TA = 11.5000
+     PER = 0.12     TIMES FOR MAXIMA --   TD = 11.3400   TV = 11.3600   TA = 11.3400
+     PER = 0.13     TIMES FOR MAXIMA --   TD = 11.3400   TV = 11.3800   TA = 11.3400
+     PER = 0.14     TIMES FOR MAXIMA --   TD = 11.3400   TV = 11.3800   TA = 11.3400
+     PER = 0.15     TIMES FOR MAXIMA --   TD = 11.4400   TV = 11.4000   TA = 11.4400
+     PER = 0.16     TIMES FOR MAXIMA --   TD = 11.4600   TV = 11.4200   TA = 11.4600
+     PER = 0.17     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.4400   TA = 11.4800
+     PER = 0.18     TIMES FOR MAXIMA --   TD = 11.5000   TV = 11.4400   TA = 11.4800
+     PER = 0.19     TIMES FOR MAXIMA --   TD = 11.5000   TV = 11.2000   TA = 11.5000
+     PER = 0.20     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.2200   TA = 11.5200
+     PER = 0.21     TIMES FOR MAXIMA --   TD = 11.2600   TV = 11.2200   TA = 11.2600
+     PER = 0.22     TIMES FOR MAXIMA --   TD = 11.2800   TV = 11.2200   TA = 11.2600
+     PER = 0.23     TIMES FOR MAXIMA --   TD = 11.5000   TV = 13.0200   TA = 11.5000
+     PER = 0.24     TIMES FOR MAXIMA --   TD = 11.5200   TV = 13.1600   TA = 11.5200
+     PER = 0.25     TIMES FOR MAXIMA --   TD = 13.1000   TV = 13.1600   TA = 13.1000
+     PER = 0.26     TIMES FOR MAXIMA --   TD = 11.2800   TV = 11.2200   TA = 11.2600
+     PER = 0.27     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.2200   TA = 11.4800
+     PER = 0.28     TIMES FOR MAXIMA --   TD = 11.5000   TV = 11.4200   TA = 11.5000
+     PER = 0.29     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.6000   TA = 11.5000
+     PER = 0.30     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.6000   TA = 11.5200
+     PER = 0.31     TIMES FOR MAXIMA --   TD = 11.5400   TV = 11.6200   TA = 11.5200
+     PER = 0.32     TIMES FOR MAXIMA --   TD = 11.5400   TV = 11.6200   TA = 11.5200
+     PER = 0.33     TIMES FOR MAXIMA --   TD = 11.5400   TV = 11.6200   TA = 11.5200
+     PER = 0.34     TIMES FOR MAXIMA --   TD = 11.5400   TV = 11.6200   TA = 11.5400
+     PER = 0.35     TIMES FOR MAXIMA --   TD = 11.5400   TV = 11.6400   TA = 11.5400
+     PER = 0.36     TIMES FOR MAXIMA --   TD = 11.5400   TV = 11.6400   TA = 11.5400
+     PER = 0.37     TIMES FOR MAXIMA --   TD = 11.5600   TV = 11.6600   TA = 11.5400
+     PER = 0.38     TIMES FOR MAXIMA --   TD = 11.7800   TV = 11.8800   TA = 11.7600
+     PER = 0.39     TIMES FOR MAXIMA --   TD = 12.4000   TV = 13.1000   TA = 12.4000
+     PER = 0.40     TIMES FOR MAXIMA --   TD = 12.4200   TV = 12.5200   TA = 12.4200
+     PER = 0.41     TIMES FOR MAXIMA --   TD = 12.4400   TV = 12.9400   TA = 12.4400
+     PER = 0.42     TIMES FOR MAXIMA --   TD = 12.4600   TV = 12.5600   TA = 12.4400
+     PER = 0.43     TIMES FOR MAXIMA --   TD = 12.4600   TV = 12.3600   TA = 12.4600
+     PER = 0.44     TIMES FOR MAXIMA --   TD = 12.4800   TV = 12.3800   TA = 12.4800
+     PER = 0.45     TIMES FOR MAXIMA --   TD = 12.5000   TV = 12.3800   TA = 12.4800
+     PER = 0.46     TIMES FOR MAXIMA --   TD = 12.3000   TV = 12.4000   TA = 12.2800
+     PER = 0.47     TIMES FOR MAXIMA --   TD = 12.3000   TV = 12.2000   TA = 12.3000
+     PER = 0.48     TIMES FOR MAXIMA --   TD = 12.1000   TV = 12.2000   TA = 12.0800
+     PER = 0.49     TIMES FOR MAXIMA --   TD = 12.1000   TV = 12.2200   TA = 12.1000
+     PER = 0.50     TIMES FOR MAXIMA --   TD = 11.8800   TV = 12.2200   TA = 12.1000
+     PER = 0.51     TIMES FOR MAXIMA --   TD = 11.8800   TV = 12.0000   TA = 12.1000
+     PER = 0.52     TIMES FOR MAXIMA --   TD = 11.8800   TV = 12.0000   TA = 11.8800
+     PER = 0.53     TIMES FOR MAXIMA --   TD = 11.8800   TV = 12.0000   TA = 11.8800
+     PER = 0.54     TIMES FOR MAXIMA --   TD = 11.9000   TV = 12.0200   TA = 11.8800
+     PER = 0.55     TIMES FOR MAXIMA --   TD = 11.9000   TV = 12.0200   TA = 11.9000
+     PER = 0.56     TIMES FOR MAXIMA --   TD = 11.9200   TV = 11.8000   TA = 11.9000
+     PER = 0.57     TIMES FOR MAXIMA --   TD = 11.9200   TV = 11.8000   TA = 11.9200
+     PER = 0.58     TIMES FOR MAXIMA --   TD = 11.9200   TV = 11.8000   TA = 11.9200
+     PER = 0.60     TIMES FOR MAXIMA --   TD = 11.9400   TV = 11.8000   TA = 11.9200
+     PER = 0.62     TIMES FOR MAXIMA --   TD = 11.9400   TV = 11.8200   TA = 11.9400
+     PER = 0.64     TIMES FOR MAXIMA --   TD = 11.6800   TV = 11.8200   TA = 11.6800
+     PER = 0.66     TIMES FOR MAXIMA --   TD = 11.7000   TV = 11.8400   TA = 11.7000
+     PER = 0.68     TIMES FOR MAXIMA --   TD = 11.7200   TV = 11.5800   TA = 11.7000
+     PER = 0.70     TIMES FOR MAXIMA --   TD = 11.7400   TV = 11.6000   TA = 11.7200
+     PER = 0.72     TIMES FOR MAXIMA --   TD = 11.7600   TV = 11.6000   TA = 11.7400
+     PER = 0.74     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.6200   TA = 11.4600
+     PER = 0.76     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.3600   TA = 11.4800
+     PER = 0.78     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.3600   TA = 11.4800
+     PER = 0.80     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.3600   TA = 11.4800
+     PER = 0.82     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.3600   TA = 11.4800
+     PER = 0.84     TIMES FOR MAXIMA --   TD = 11.4800   TV = 11.3600   TA = 11.4800
+     PER = 0.86     TIMES FOR MAXIMA --   TD = 11.5000   TV = 11.3600   TA = 11.4800
+     PER = 0.88     TIMES FOR MAXIMA --   TD = 11.2000   TV = 11.3600   TA = 11.2000
+     PER = 0.90     TIMES FOR MAXIMA --   TD = 11.2000   TV = 11.3800   TA = 11.2000
+     PER = 0.92     TIMES FOR MAXIMA --   TD = 11.2200   TV = 11.3800   TA = 11.2000
+     PER = 0.94     TIMES FOR MAXIMA --   TD = 11.2200   TV = 11.3800   TA = 11.2000
+     PER = 0.96     TIMES FOR MAXIMA --   TD = 11.2200   TV = 11.3800   TA = 11.2200
+     PER = 0.98     TIMES FOR MAXIMA --   TD = 11.2400   TV = 11.3800   TA = 11.2200
+     PER = 1.00     TIMES FOR MAXIMA --   TD = 11.2400   TV = 11.3800   TA = 11.2200
+     PER = 1.05     TIMES FOR MAXIMA --   TD = 11.2800   TV = 11.4000   TA = 11.2600
+     PER = 1.10     TIMES FOR MAXIMA --   TD = 11.2800   TV = 11.1400   TA = 11.2600
+     PER = 1.15     TIMES FOR MAXIMA --   TD = 11.2800   TV = 11.1400   TA = 11.2800
+     PER = 1.20     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.1400   TA = 11.2800
+     PER = 1.25     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.1400   TA = 11.2800
+     PER = 1.30     TIMES FOR MAXIMA --   TD = 11.3000   TV = 11.1400   TA = 11.2800
+     PER = 1.35     TIMES FOR MAXIMA --   TD = 12.9000   TV = 11.1400   TA = 12.8800
+     PER = 1.40     TIMES FOR MAXIMA --   TD = 12.3200   TV = 11.1600   TA = 12.3000
+     PER = 1.45     TIMES FOR MAXIMA --   TD = 12.3400   TV = 11.1600   TA = 12.3200
+     PER = 1.50     TIMES FOR MAXIMA --   TD = 11.7000   TV = 11.1600   TA = 11.6800
+     PER = 1.55     TIMES FOR MAXIMA --   TD = 11.7200   TV = 11.1600   TA = 11.7000
+     PER = 1.60     TIMES FOR MAXIMA --   TD = 11.7400   TV = 11.1600   TA = 11.7000
+     PER = 1.65     TIMES FOR MAXIMA --   TD = 11.7400   TV = 12.2200   TA = 11.7200
+     PER = 1.70     TIMES FOR MAXIMA --   TD = 11.7600   TV = 12.2200   TA = 11.7200
+     PER = 1.75     TIMES FOR MAXIMA --   TD = 11.7600   TV = 12.2200   TA = 11.7400
+     PER = 1.80     TIMES FOR MAXIMA --   TD = 11.7800   TV = 12.2400   TA = 11.7400
+     PER = 1.85     TIMES FOR MAXIMA --   TD = 11.8000   TV = 11.6000   TA = 11.7600
+     PER = 1.90     TIMES FOR MAXIMA --   TD = 11.8000   TV = 11.6000   TA = 11.7800
+     PER = 1.95     TIMES FOR MAXIMA --   TD = 11.8200   TV = 11.6000   TA = 11.7800
+     PER = 2.00     TIMES FOR MAXIMA --   TD = 12.0400   TV = 11.6000   TA = 12.0200
+     PER = 2.05     TIMES FOR MAXIMA --   TD = 12.0600   TV = 11.6000   TA = 12.0400
+     PER = 2.10     TIMES FOR MAXIMA --   TD = 12.0800   TV = 11.6200   TA = 12.0600
+     PER = 2.15     TIMES FOR MAXIMA --   TD = 12.1000   TV = 11.6200   TA = 12.0800
+     PER = 2.20     TIMES FOR MAXIMA --   TD = 12.1200   TV = 11.6200   TA = 12.0800
+     PER = 2.25     TIMES FOR MAXIMA --   TD = 12.1200   TV = 11.6200   TA = 12.0800
+     PER = 2.30     TIMES FOR MAXIMA --   TD = 12.1200   TV = 11.6200   TA = 12.1000
+     PER = 2.35     TIMES FOR MAXIMA --   TD = 12.1400   TV = 11.6200   TA = 12.1000
+     PER = 2.40     TIMES FOR MAXIMA --   TD = 12.1400   TV = 11.6200   TA = 12.1200
+     PER = 2.50     TIMES FOR MAXIMA --   TD = 12.1600   TV = 11.6400   TA = 12.1200
+     PER = 2.60     TIMES FOR MAXIMA --   TD = 12.1800   TV = 11.6400   TA = 12.1400
+     PER = 2.70     TIMES FOR MAXIMA --   TD = 18.0800   TV = 11.6400   TA = 18.0400
+     PER = 2.80     TIMES FOR MAXIMA --   TD = 18.1800   TV = 11.6400   TA = 18.1400
+     PER = 2.90     TIMES FOR MAXIMA --   TD = 16.9600   TV = 11.6400   TA = 16.9200
+     PER = 3.00     TIMES FOR MAXIMA --   TD = 17.0400   TV = 11.6400   TA = 17.0000
+     PER = 3.10     TIMES FOR MAXIMA --   TD = 17.1400   TV = 11.6400   TA = 17.1000
+     PER = 3.20     TIMES FOR MAXIMA --   TD = 14.3000   TV = 11.6400   TA = 14.2400
+     PER = 3.30     TIMES FOR MAXIMA --   TD = 14.4800   TV = 11.6400   TA = 14.4600
+     PER = 3.40     TIMES FOR MAXIMA --   TD = 14.5400   TV = 11.6400   TA = 14.4800
+     PER = 3.50     TIMES FOR MAXIMA --   TD = 14.5800   TV = 11.6400   TA = 14.5200
+     PER = 3.60     TIMES FOR MAXIMA --   TD = 14.6200   TV = 11.6400   TA = 14.5800
+     PER = 3.70     TIMES FOR MAXIMA --   TD = 14.6600   TV = 11.6400   TA = 14.6200
+     PER = 3.80     TIMES FOR MAXIMA --   TD = 14.7200   TV = 11.6400   TA = 14.6400
+     PER = 3.90     TIMES FOR MAXIMA --   TD = 14.9000   TV = 11.6400   TA = 14.8600
+     PER = 4.00     TIMES FOR MAXIMA --   TD = 13.3000   TV = 11.6400   TA = 11.4200
+     PER = 4.10     TIMES FOR MAXIMA --   TD = 13.3200   TV = 11.6400   TA = 13.2800
+     PER = 4.20     TIMES FOR MAXIMA --   TD = 13.3200   TV = 11.6400   TA = 13.2800
+     PER = 4.30     TIMES FOR MAXIMA --   TD = 13.3400   TV = 11.6400   TA = 13.2800
+     PER = 4.40     TIMES FOR MAXIMA --   TD = 13.3600   TV = 11.6400   TA = 13.3000
+     PER = 4.50     TIMES FOR MAXIMA --   TD = 13.3600   TV = 11.6400   TA = 13.3000
+     PER = 4.60     TIMES FOR MAXIMA --   TD = 13.3800   TV = 11.6400   TA = 13.3000
+     PER = 4.70     TIMES FOR MAXIMA --   TD = 13.4000   TV = 11.6400   TA = 11.4200
+     PER = 4.80     TIMES FOR MAXIMA --   TD = 13.7400   TV = 11.6400   TA = 11.4200
+     PER = 4.90     TIMES FOR MAXIMA --   TD = 13.7600   TV = 11.6400   TA = 11.4200
+     PER = 5.00     TIMES FOR MAXIMA --   TD = 13.7600   TV = 11.6400   TA = 11.4200
+     PER = 5.10     TIMES FOR MAXIMA --   TD = 13.7800   TV = 11.6400   TA = 11.4200
+     PER = 5.20     TIMES FOR MAXIMA --   TD = 13.8000   TV = 11.6400   TA = 11.4200
+     PER = 5.40     TIMES FOR MAXIMA --   TD = 19.4200   TV = 11.3800   TA = 11.4200
+     PER = 5.60     TIMES FOR MAXIMA --   TD = 19.6800   TV = 11.3800   TA = 19.6000
+     PER = 5.80     TIMES FOR MAXIMA --   TD = 19.7800   TV = 11.3800   TA = 11.4200
+     PER = 6.00     TIMES FOR MAXIMA --   TD = 23.3600   TV = 11.3800   TA = 11.4200
+     PER = 6.20     TIMES FOR MAXIMA --   TD = 23.5600   TV = 11.3800   TA = 11.4200
+     PER = 6.40     TIMES FOR MAXIMA --   TD = 23.9200   TV = 11.3800   TA = 11.4200
+     PER = 6.60     TIMES FOR MAXIMA --   TD = 24.2000   TV = 11.3800   TA = 11.4200
+     PER = 6.80     TIMES FOR MAXIMA --   TD = 24.4800   TV = 11.3800   TA = 11.4200
+     PER = 7.00     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.3800   TA = 11.4200
+     PER = 7.20     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.3800   TA = 11.4200
+     PER = 7.40     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.3800   TA = 11.4200
+     PER = 7.60     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.3800   TA = 11.4200
+     PER = 7.80     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.3800   TA = 11.4200
+     PER = 8.00     TIMES FOR MAXIMA --   TD = 11.5200   TV = 11.3800   TA = 11.4200
+     PER = 8.50     TIMES FOR MAXIMA --   TD = 12.3600   TV = 11.3800   TA = 11.4200
+     PER = 9.00     TIMES FOR MAXIMA --   TD = 12.3600   TV = 11.3800   TA = 11.4200
+     PER = 9.50     TIMES FOR MAXIMA --   TD = 10.4400   TV = 11.3800   TA = 11.4200
+      SPECTRAL VALUES --
+      [Acceleration of gravity used =  981.00]
+                               Example -- 150-ft layer; inpu  DAMPING RATIO = 0.05
+     NO.    PERIOD     REL. DISP.      REL. VEL.   PSU.REL.VEL.      ABS. ACC.   PSU.ABS.ACC.     FREQ.
+       1      0.01        0.00047        0.00924        0.29610        0.18983        0.18965    100.00
+       2      0.03        0.00453        0.47937        0.94861        0.20152        0.20253     33.33
+       3      0.04        0.00762        0.76811        1.19668        0.19052        0.19161     25.00
+       4      0.05        0.01481        1.05415        1.86057        0.22653        0.23833     20.00
+       5      0.06        0.03395        2.24950        3.55555        0.36886        0.37955     16.67
+       6      0.07        0.04785        2.63825        4.29500        0.40334        0.39298     14.29
+       7      0.08        0.05962        2.66349        4.68247        0.38582        0.37488     12.50
+       8      0.09        0.09945        5.03480        6.94277        0.48405        0.49408     11.11
+       9      0.10        0.09603        4.25036        6.03359        0.39771        0.38644     10.00
+      10      0.11        0.09332        4.06867        5.33070        0.30825        0.31039      9.09
+      11      0.12        0.11703        4.65062        6.12770        0.31764        0.32706      8.33
+      12      0.13        0.16031        5.86284        7.74811        0.37731        0.38174      7.69
+      13      0.14        0.20146        8.06439        9.04163        0.42403        0.41365      7.14
+      14      0.15        0.25902        9.06110       10.84978        0.46878        0.46328      6.67
+      15      0.16        0.30508        8.99121       11.98061        0.48098        0.47959      6.25
+      16      0.17        0.33184        8.11761       12.26475        0.45969        0.46208      5.88
+      17      0.18        0.33359        7.59329       11.64446        0.41832        0.41434      5.56
+      18      0.19        0.34830        7.14111       11.51810        0.39024        0.38827      5.26
+      19      0.20        0.34684        7.99987       10.89631        0.34605        0.34895      5.00
+      20      0.21        0.36917        9.48501       11.04548        0.33744        0.33688      4.76
+      21      0.22        0.32302        8.33008        9.22536        0.26690        0.26858      4.55
+      22      0.23        0.42389        8.84671       11.57998        0.32259        0.32247      4.35
+      23      0.24        0.45363        8.63025       11.87599        0.31471        0.31693      4.17
+      24      0.25        0.44962        9.50007       11.30010        0.28920        0.28950      4.00
+      25      0.26        0.53194       11.36741       12.85490        0.31491        0.31667      3.85
+      26      0.27        0.66095       12.57518       15.38092        0.36832        0.36486      3.70
+      27      0.28        0.86451       13.27157       19.39946        0.44334        0.44375      3.57
+      28      0.29        1.00093       16.15665       21.68625        0.47802        0.47896      3.45
+      29      0.30        1.06696       17.37016       22.34629        0.48107        0.47708      3.33
+      30      0.31        1.05958       17.37610       21.47603        0.44312        0.44371      3.23
+      31      0.32        1.08868       17.28934       21.37621        0.42815        0.42785      3.12
+      32      0.33        1.22200       19.00186       23.26682        0.45269        0.45158      3.03
+      33      0.34        1.38794       21.10464       25.64900        0.48069        0.48317      2.94
+      34      0.35        1.56612       23.77474       28.11489        0.51419        0.51449      2.86
+      35      0.36        1.80248       27.34214       31.45929        0.56291        0.55970      2.78
+      36      0.37        2.06672       31.19145       35.09617        0.61097        0.60753      2.70
+      37      0.38        2.36450       36.28211       39.09623        0.66576        0.65896      2.63
+      38      0.39        2.75740       42.94630       44.42374        0.73033        0.72956      2.56
+      39      0.40        3.11702       47.14299       48.96197        0.78319        0.78399      2.50
+      40      0.41        3.31152       49.56535       50.74846        0.78965        0.79277      2.44
+      41      0.42        3.34911       49.07927       50.10250        0.76743        0.76405      2.38
+      42      0.43        3.34598       49.05818       48.89164        0.73621        0.72824      2.33
+      43      0.44        3.40852       49.36511       48.67361        0.70812        0.70852      2.27
+      44      0.45        3.45830       50.28672       48.28695        0.69114        0.68727      2.22
+      45      0.46        3.49656       50.52214       47.75989        0.67375        0.66499      2.17
+      46      0.47        3.46976       49.65595       46.38540        0.63663        0.63211      2.13
+      47      0.48        3.34862       47.37157       43.83330        0.58681        0.58489      2.08
+      48      0.49        3.18608       44.04374       40.85453        0.53719        0.53402      2.04
+      49      0.50        3.04459       41.48094       38.25949        0.49489        0.49009      2.00
+      50      0.51        3.05681       40.78749       37.65981        0.47272        0.47295      1.96
+      51      0.52        3.22257       41.96144       38.93851        0.48039        0.47961      1.92
+      52      0.53        3.45928       43.61701       41.00999        0.49972        0.49559      1.89
+      53      0.54        3.67493       44.90088       42.75976        0.51003        0.50717      1.85
+      54      0.55        3.78439       44.59724       43.23278        0.50610        0.50346      1.82
+      55      0.56        3.76088       44.45700       42.19693        0.48616        0.48262      1.79
+      56      0.57        3.66750       43.78270       40.42732        0.45545        0.45427      1.75
+      57      0.58        3.51470       42.26495       38.07502        0.42527        0.42046      1.72
+      58      0.60        3.39854       40.15445       35.58941        0.38119        0.37991      1.67
+      59      0.62        3.54064       41.52565       35.88140        0.37366        0.37067      1.61
+      60      0.64        3.91608       44.27568       38.44605        0.38789        0.38475      1.56
+      61      0.66        4.27776       44.50967       40.72420        0.39616        0.39520      1.52
+      62      0.68        4.29834       42.81704       39.71656        0.37481        0.37409      1.47
+      63      0.70        3.98238       41.15348       35.74581        0.32887        0.32707      1.43
+      64      0.72        3.44645       37.39818       30.07594        0.27071        0.26755      1.39
+      65      0.74        3.05526       32.84467       25.94154        0.22584        0.22453      1.35
+      66      0.76        2.67414       30.09224       22.10808        0.18797        0.18632      1.32
+      67      0.78        2.37799       27.69545       19.15555        0.15934        0.15729      1.28
+      68      0.80        2.24551       26.15226       17.63621        0.14305        0.14120      1.25
+      69      0.82        2.24033       25.70735       17.16636        0.13596        0.13408      1.22
+      70      0.84        2.28702       26.04063       17.10684        0.13282        0.13044      1.19
+      71      0.86        2.35484       26.78927       17.20452        0.13001        0.12813      1.16
+      72      0.88        2.48337       27.64888       17.73123        0.13007        0.12905      1.14
+      73      0.90        2.71257       28.53642       18.93732        0.13635        0.13477      1.11
+      74      0.92        2.93503       29.02282       20.04490        0.14118        0.13955      1.09
+      75      0.94        3.11589       28.93769       20.82735        0.14316        0.14191      1.06
+      76      0.96        3.23031       28.30214       21.14236        0.14215        0.14106      1.04
+      77      0.98        3.30177       27.24703       21.16899        0.13971        0.13835      1.02
+      78      1.00        3.33190       25.91723       20.93494        0.13513        0.13409      1.00
+      79      1.05        3.29046       22.40916       19.69009        0.12117        0.12011      0.95
+      80      1.10        3.18447       21.46059       18.18963        0.10667        0.10591      0.91
+      81      1.15        3.21002       21.73943       17.53838        0.09867        0.09768      0.87
+      82      1.20        3.29860       22.67484       17.27143        0.09361        0.09218      0.83
+      83      1.25        3.32517       23.47095       16.71412        0.08700        0.08564      0.80
+      84      1.30        3.33790       24.25841       16.13282        0.08085        0.07948      0.77
+      85      1.35        3.57951       25.25957       16.65980        0.07987        0.07904      0.74
+      86      1.40        4.19534       26.13011       18.82862        0.08696        0.08614      0.71
+      87      1.45        4.66780       26.56456       20.22668        0.09029        0.08934      0.69
+      88      1.50        5.09715       26.56879       21.35090        0.09224        0.09117      0.67
+      89      1.55        5.57680       26.29752       22.60648        0.09449        0.09341      0.65
+      90      1.60        5.94847       25.76613       23.35958        0.09480        0.09351      0.62
+      91      1.65        6.23611       27.16594       23.74705        0.09331        0.09218      0.61
+      92      1.70        6.40940       28.00845       23.68909        0.09037        0.08925      0.59
+      93      1.75        6.51082       28.18158       23.37640        0.08667        0.08556      0.57
+      94      1.80        6.55887       27.91710       22.89476        0.08242        0.08147      0.56
+      95      1.85        6.53948       27.33083       22.21016        0.07794        0.07689      0.54
+      96      1.90        6.46388       28.31541       21.37567        0.07286        0.07206      0.53
+      97      1.95        6.31024       29.00098       20.33251        0.06752        0.06678      0.51
+      98      2.00        6.24650       29.35645       19.62397        0.06308        0.06284      0.50
+      99      2.05        6.38175       29.41719       19.55986        0.06152        0.06111      0.49
+     100      2.10        6.47287       29.36642       19.36678        0.05956        0.05907      0.48
+     101      2.15        6.53689       29.21131       19.10349        0.05740        0.05691      0.47
+     102      2.20        6.58537       29.04413       18.80776        0.05540        0.05476      0.45
+     103      2.25        6.65117       28.91736       18.57358        0.05346        0.05287      0.44
+     104      2.30        6.70699       28.83577       18.32228        0.05173        0.05102      0.43
+     105      2.35        6.76193       28.76930       18.07934        0.04997        0.04927      0.43
+     106      2.40        6.78027       28.67108       17.75071        0.04806        0.04737      0.42
+     107      2.50        6.67555       28.24358       16.77749        0.04373        0.04298      0.40
+     108      2.60        6.34983       27.44264       15.34506        0.03857        0.03780      0.38
+     109      2.70        6.43320       26.32599       14.97074        0.03561        0.03551      0.37
+     110      2.80        6.96810       25.16653       15.63638        0.03611        0.03577      0.36
+     111      2.90        6.95825       24.19965       15.07586        0.03351        0.03330      0.34
+     112      3.00        6.94620       23.52806       14.54809        0.03131        0.03106      0.33
+     113      3.10        6.70756       23.13039       13.59511        0.02826        0.02809      0.32
+     114      3.20        6.34777       22.91013       12.46383        0.02506        0.02495      0.31
+     115      3.30        6.69801       22.75391       12.75299        0.02481        0.02475      0.30
+     116      3.40        7.08800       22.57153       13.09858        0.02486        0.02467      0.29
+     117      3.50        7.37013       22.30988       13.23082        0.02443        0.02421      0.29
+     118      3.60        7.51544       21.95364       13.11693        0.02355        0.02334      0.28
+     119      3.70        7.50513       21.51431       12.74490        0.02231        0.02206      0.27
+     120      3.80        7.35538       21.01904       12.16189        0.02071        0.02050      0.26
+     121      3.90        7.22313       20.49863       11.63699        0.01919        0.01911      0.26
+     122      4.00        7.24067       19.98169       11.37361        0.01848        0.01821      0.25
+     123      4.10        7.45371       19.48978       11.42270        0.01807        0.01784      0.24
+     124      4.20        7.60726       19.03470       11.38044        0.01764        0.01735      0.24
+     125      4.30        7.71986       18.62326       11.28030        0.01710        0.01680      0.23
+     126      4.40        7.79742       18.25385       11.13469        0.01654        0.01621      0.23
+     127      4.50        7.85234       17.92212       10.96394        0.01594        0.01561      0.22
+     128      4.60        7.89436       17.62073       10.78298        0.01534        0.01501      0.22
+     129      4.70        7.92062       17.33936       10.58867        0.01493        0.01443      0.21
+     130      4.80        8.10340       17.07220       10.60732        0.01457        0.01415      0.21
+     131      4.90        8.32443       16.81036       10.67427        0.01424        0.01395      0.20
+     132      5.00        8.51406       16.54669       10.69908        0.01394        0.01371      0.20
+     133      5.10        8.67670       16.27881       10.68967        0.01366        0.01342      0.20
+     134      5.20        8.79886       16.00116       10.63171        0.01339        0.01310      0.19
+     135      5.40        9.24481       15.44629       10.75683        0.01288        0.01276      0.19
+     136      5.60        9.71679       15.96875       10.90222        0.01256        0.01247      0.18
+     137      5.80        9.74610       16.50513       10.55802        0.01181        0.01166      0.17
+     138      6.00        9.64945       17.03540       10.10488        0.01124        0.01079      0.17
+     139      6.20        9.90734       17.54199       10.04026        0.01063        0.01037      0.16
+     140      6.40        9.73478       18.01123        9.55710        0.01001        0.00956      0.16
+     141      6.60        9.51966       18.43335        9.06270        0.00938        0.00879      0.15
+     142      6.80        9.14827       18.80371        8.45298        0.00876        0.00796      0.15
+     143      7.00        8.89315       19.11816        7.98247        0.00815        0.00730      0.14
+     144      7.20        8.65509       19.37598        7.55300        0.00756        0.00672      0.14
+     145      7.40        8.38636       19.58521        7.12068        0.00700        0.00616      0.14
+     146      7.60        8.09342       19.74487        6.69111        0.00647        0.00564      0.13
+     147      7.80        7.78415       19.86377        6.27041        0.00597        0.00515      0.13
+     148      8.00        7.46582       19.94092        5.86364        0.00551        0.00469      0.12
+     149      8.50        6.68983       20.00635        4.94511        0.00451        0.00373      0.12
+     150      9.00        6.20179       19.93506        4.32967        0.00372        0.00308      0.11
+     151      9.50        5.96667       19.78564        3.94628        0.00309        0.00266      0.11
+     152     10.00        0.00000        0.00000        0.00000        0.00000        0.00000      0.10
+          VALUES IN PERIOD RANGE .1 to 2.5 SEC.   
+               AREA OF ACC. RESPONSE SPECTRUM   =      0.459
+               AREA OF VEL. RESPONSE SPECTRUM   =     67.056
+               MAX. ACCELERATION RESPONSE VALUE =      0.790
+               MAX. VELOCITY     RESPONSE VALUE =     50.522
+     Option NO.    9   has been concluded.
+     Option NO.   10   is started.
+
+1******   OPTION 10  ***  COMPUTE AMPLIFICATION FUNCTION                     
+
+    AMPLIFICATION SPECTRUM BETWEEN LAYER   17 AND   1
+  OUTPUT LAYER OUTCROPPING
+  INPUT LAYER OUTCROPPING 
+
+  FREQUENCY    AMPLITUDE
+     0.0000       1.0000
+     0.1250       1.0039
+     0.2500       1.0164
+     0.3750       1.0379
+     0.5000       1.0692
+     0.6250       1.1116
+     0.7500       1.1669
+     0.8750       1.2376
+     1.0000       1.3270
+     1.1250       1.4400
+     1.2500       1.5827
+     1.3750       1.7636
+     1.5000       1.9925
+     1.6250       2.2793
+     1.7500       2.6251
+     1.8750       3.0014
+     2.0000       3.3181
+     2.1250       3.4369
+     2.2500       3.2969
+     2.3750       2.9908
+     2.5000       2.6491
+     2.6250       2.3431
+     2.7500       2.0923
+     2.8750       1.8937
+     3.0000       1.7386
+     3.1250       1.6186
+     3.2500       1.5268
+     3.3750       1.4579
+     3.5000       1.4083
+     3.6250       1.3753
+     3.7500       1.3572
+     3.8750       1.3529
+     4.0000       1.3622
+     4.1250       1.3851
+     4.2500       1.4223
+     4.3750       1.4752
+     4.5000       1.5454
+     4.6250       1.6351
+     4.7500       1.7471
+     4.8750       1.8835
+     5.0000       2.0450
+     5.1250       2.2279
+     5.2500       2.4195
+     5.3750       2.5924
+     5.5000       2.7063
+     5.6250       2.7239
+     5.7500       2.6376
+     5.8750       2.4757
+     6.0000       2.2805
+     6.1250       2.0854
+     6.2500       1.9086
+     6.3750       1.7566
+     6.5000       1.6296
+     6.6250       1.5256
+     6.7500       1.4419
+     6.8750       1.3756
+     7.0000       1.3246
+     7.1250       1.2870
+     7.2500       1.2616
+     7.3750       1.2474
+     7.5000       1.2439
+     7.6250       1.2509
+     7.7500       1.2685
+     7.8750       1.2970
+     8.0000       1.3373
+     8.1250       1.3901
+     8.2500       1.4567
+     8.3750       1.5381
+     8.5000       1.6349
+     8.6250       1.7467
+     8.7500       1.8704
+     8.8750       1.9986
+     9.0000       2.1179
+     9.1250       2.2089
+     9.2500       2.2514
+     9.3750       2.2340
+     9.5000       2.1609
+     9.6250       2.0494
+     9.7500       1.9202
+     9.8750       1.7900
+    10.0000       1.6690
+    10.1250       1.5619
+    10.2500       1.4703
+    10.3750       1.3937
+    10.5000       1.3311
+    10.6250       1.2813
+    10.7500       1.2431
+    10.8750       1.2155
+    11.0000       1.1978
+    11.1250       1.1893
+    11.2500       1.1897
+    11.3750       1.1989
+    11.5000       1.2170
+    11.6250       1.2440
+    11.7500       1.2802
+    11.8750       1.3258
+    12.0000       1.3805
+    12.1250       1.4440
+    12.2500       1.5145
+    12.3750       1.5891
+    12.5000       1.6624
+    12.6250       1.7270
+    12.7500       1.7739
+    12.8750       1.7946
+    13.0000       1.7845
+    13.1250       1.7447
+    13.2500       1.6816
+    13.3750       1.6042
+    13.5000       1.5213
+    13.6250       1.4396
+    13.7500       1.3635
+    13.8750       1.2953
+    14.0000       1.2361
+    14.1250       1.1859
+    14.2500       1.1445
+    14.3750       1.1115
+    14.5000       1.0863
+    14.6250       1.0687
+    14.7500       1.0581
+    14.8750       1.0545
+    15.0000       1.0575
+    15.1250       1.0672
+    15.2500       1.0835
+    15.3750       1.1065
+    15.5000       1.1361
+    15.6250       1.1723
+    15.7500       1.2146
+    15.8750       1.2622
+    16.0000       1.3137
+    16.1250       1.3664
+    16.2500       1.4167
+    16.3750       1.4600
+    16.5000       1.4911
+    16.6250       1.5053
+    16.7500       1.5004
+    16.8750       1.4766
+    17.0000       1.4372
+    17.1250       1.3869
+    17.2500       1.3311
+    17.3750       1.2741
+    17.5000       1.2193
+    17.6250       1.1687
+    17.7500       1.1236
+    17.8750       1.0846
+    18.0000       1.0519
+    18.1250       1.0254
+    18.2500       1.0049
+    18.3750       0.9902
+    18.5000       0.9812
+    18.6250       0.9777
+    18.7500       0.9795
+    18.8750       0.9866
+    19.0000       0.9988
+    19.1250       1.0160
+    19.2500       1.0382
+    19.3750       1.0650
+    19.5000       1.0959
+    19.6250       1.1303
+    19.7500       1.1669
+    19.8750       1.2040
+    20.0000       1.2395
+    20.1250       1.2706
+    20.2500       1.2946
+    20.3750       1.3091
+    20.5000       1.3123
+    20.6250       1.3041
+    20.7500       1.2856
+    20.8750       1.2589
+    21.0000       1.2268
+    21.1250       1.1919
+    21.2500       1.1567
+    21.3750       1.1230
+    21.5000       1.0921
+    21.6250       1.0651
+    21.7500       1.0423
+    21.8750       1.0241
+    22.0000       1.0106
+    22.1250       1.0020
+    22.2500       0.9981
+    22.3750       0.9989
+    22.5000       1.0044
+    22.6250       1.0144
+    22.7500       1.0288
+    22.8750       1.0472
+    23.0000       1.0692
+    23.1250       1.0940
+    23.2500       1.1206
+    23.3750       1.1476
+    23.5000       1.1731
+    23.6250       1.1949
+    23.7500       1.2106
+    23.8750       1.2183
+    24.0000       1.2165
+    24.1250       1.2048
+    24.2500       1.1840
+    24.3750       1.1556
+    24.5000       1.1220
+    24.6250       1.0854
+    24.7500       1.0479
+    24.8750       1.0113
+ MAXIMUM AMPLIFICATION =   3.44
+ FOR FREQUENCY         =   2.12 C/SEC.
+     PERIOD            =   0.47 SEC.
+1  PLOT OF AMPLIFICATION SPECTRA 
+
+     Option NO.   10   has been concluded.
