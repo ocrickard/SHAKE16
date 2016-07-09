@@ -33,19 +33,21 @@ C
 C
       XMIN = 100000000.
       XMAX = 0.
-      DO 1 L= 1,NC
-      M = NV(L)
-      IF (XMAX .LT. X(L,M))   XMAX = X(L,M)
-      IF (XMIN .GT. X(L,1)) XMIN = X(L,1)
-      M = M - 1
-      DO 1 I = 1,M
-      X1 = X(L,I)
-      X2 = X(L,I+1)
-      IF (K1 .EQ. 2)  X1 = ALOG10(X1)
-      IF (K1 .EQ. 2)  X2 = ALOG10(X2)
-      X(L,I) = X(L,I+1)
-      A(L,I) = (Y(L,I+1) - Y(L,I))/(X2 - X1)
-    1 B(L,I) = -A(L,I)*X1 + Y(L,I)
+      DO L= 1,NC
+        M = NV(L)
+        IF (XMAX .LT. X(L,M))   XMAX = X(L,M)
+        IF (XMIN .GT. X(L,1)) XMIN = X(L,1)
+        M = M - 1
+        DO I = 1,M
+          X1 = X(L,I)
+          X2 = X(L,I+1)
+          IF (K1 .EQ. 2)  X1 = ALOG10(X1)
+          IF (K1 .EQ. 2)  X2 = ALOG10(X2)
+          X(L,I) = X(L,I+1)
+          A(L,I) = (Y(L,I+1) - Y(L,I))/(X2 - X1)
+          B(L,I) = -A(L,I)*X1 + Y(L,I)
+        END DO
+      END DO
 C
       CALL STEPG(K1, NN, TSTEP, NT, XMIN, XMAX, T, NSTEP)
 C
