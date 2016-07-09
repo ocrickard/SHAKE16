@@ -168,18 +168,18 @@ C                in this subroutine
 C    otherwise, periods are specified by user (maximum is 200 periods)
 C -------------------------------------------------------------------
       if (KPER.eq. 0) go to 99
-        read(5,'(A32)') FPERIOD
-        write(6,60) FPERIOD
-   60   format(' File from which periods were read: ' A32)
-        open(8,FILE=FPERIOD,STATUS='OLD')
-        read (8,4) NLINES, NNM
-        do I = 1, NLINES
-          read(8,*) headerd
-          write(6,*) headerd
-        end do
-        read(8,*) (T(I), I=1, NNM)
-        close(8)
-        go to 101
+      read(5,'(A32)') FPERIOD
+      write(6,60) FPERIOD
+ 60   format(' File from which periods were read: ' A32)
+      open(8,FILE=FPERIOD,STATUS='OLD')
+      read (8,4) NLINES, NNM
+      do I = 1, NLINES
+        read(8,*) headerd
+        write(6,*) headerd
+      end do
+      read(8,*) (T(I), I=1, NNM)
+      close(8)
+      go to 101
 C ----------------------------------------------------------------------
 C  default periods for calculating response spectra
 C  ---------------------------------------------------------------------
@@ -483,7 +483,9 @@ C     SET UP INV(J) TABLE
         MTLEXP=MTLEXP/2
         LM1EXP=LM1EXP*2
       end do
-      if (IFSET) 20,600,20
+      if (IFSET .eq. 0) then
+        return
+      end if
 20    MTT=MAX0(M(1),M(2),M(3))-2
       ROOT2=SQRT(2.)
       if (MTT-MT .gt. 0) then
@@ -808,10 +810,11 @@ C
 C     MOVE LAST HALF OF A(J)S DOWN ONE SLOT AND ADD A(N) AT BOTTOM TO
 C     GIVE ARRAY FOR A1PRIME AND A2PRIME CALCULATION
 C
-      do 30 I=1,NTOT,2
-      J0=NTOT2+2-I
-      A(J0)=A(J0-2)
-30    A(J0+1)=A(J0-1)
+      do I=1,NTOT,2
+        J0=NTOT2+2-I
+        A(J0)=A(J0-2)
+        A(J0+1)=A(J0-1)
+      end do
       A(NTOT2+3)=A(1)
       A(NTOT2+4)=A(2)
 C
@@ -905,11 +908,12 @@ C     IFSET=-1
         CIRE= A(2*I-1) + A(K6)
         CIIM=A(2*I)-A(K6+1)
         CNIRE=(-SI*(A(2*I)+A(K6+1))+CO*(A(2*I-1)-A(K6)))
-        if (SI)62,61,62
-  62    CNIIM=(A(2*I-1)-A(K6)-CO*CNIRE)/SI
-        go to 63
-  61    CNIIM=0.
-  63    A(2*I-1)=CIRE
+        if (SI .ne. 0) then
+          CNIIM=(A(2*I-1)-A(K6)-CO*CNIRE)/SI
+        else
+          CNIIM=0.
+        end if
+        A(2*I-1)=CIRE
         A(2*I)=CIIM
         A(K6)=CNIRE
         A(K6+1)=CNIIM
@@ -933,7 +937,7 @@ C     IFSET=-1
       NT00=NTOT+1
       A(1)=A(NTOT2+3)
       A(2)=A(NTOT2+4)
-   21 do I=NT00,NTOP,2
+      do I=NT00,NTOP,2
         A(I)=A(I+2)
         A(I+1)=A(I+3)
       end do
