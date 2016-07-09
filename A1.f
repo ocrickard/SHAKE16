@@ -290,18 +290,19 @@ C .....................................................................
       write(6,112) D
       N = 1
       YY = SQRT(1.-D*D)
-      do 200 LOOP = 2, M
-      W = 6.283185307/T(N)
-      WD = YY*W
-      W2 = W*W
-      W3 = W2*W
-      call CMPMAX(KUG,T(N),W,W2,W3,WD,D,DT,ZD,ZV,ZA,A)
-      SV(NN,N) = ZV
-      SA(NN,N) = ZA/GGT
-       RD(N) = ZD
-      PRV(N) = W*ZD
-      PAA(N) = W2*ZD/GGT
-  200 N = N + 1
+      do LOOP = 2, M
+        W = 6.283185307/T(N)
+        WD = YY*W
+        W2 = W*W
+        W3 = W2*W
+        call CMPMAX(KUG,T(N),W,W2,W3,WD,D,DT,ZD,ZV,ZA,A)
+        SV(NN,N) = ZV
+        SA(NN,N) = ZA/GGT
+        RD(N) = ZD
+        PRV(N) = W*ZD
+        PAA(N) = W2*ZD/GGT
+        N = N + 1
+      end do
       write(6,312) GGT, (ID(NN,I), I = 1,10),D
       SUMSV = 0.
       SUMSA = 0.
