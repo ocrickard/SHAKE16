@@ -56,7 +56,7 @@ Hit enter after finishing inputting each file name. If all is successful the pro
 
 ## License
 
-The original source was published without a license. In keeping with that practice, we have added a public domain license. You are free to use, modify, copy, distribute this source or any resulting programs in any way you wish with no restrictions.
+The original source was published into the public domain. In keeping with that practice, we have kept an open source public domain license. You are free to use, modify, copy, distribute this source or any resulting programs in any way you wish with no restrictions.
 
 https://github.com/ocrickard/SHAKE16/blob/master/LICENSE.md
 
