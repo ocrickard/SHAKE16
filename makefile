@@ -18,7 +18,7 @@ install: build
 	cp SHAKE16 /usr/local/bin/SHAKE16
 
 clean:
-	rm -rf output/build/
+	rm -rf output/
 	rm -f SHAKE16
 
 uninstall: clean

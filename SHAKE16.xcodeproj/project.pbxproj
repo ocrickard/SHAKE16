@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		B1E657991D31F33200B4E9E2 /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
 		B1F11EC91D31419000180392 /* A1.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = A1.f; sourceTree = "<group>"; };
 		B1F11ECA1D31419000180392 /* B1.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = B1.f; sourceTree = "<group>"; };
 		B1F11ECB1D31419000180392 /* C1.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; path = C1.f; sourceTree = "<group>"; };
@@ -22,6 +23,7 @@
 				B1F11ECA1D31419000180392 /* B1.f */,
 				B1F11ECB1D31419000180392 /* C1.f */,
 				B1F11ECC1D31419000180392 /* Main.f */,
+				B1E657991D31F33200B4E9E2 /* test.sh */,
 				B1F11ECD1D31419000180392 /* makefile */,
 			);
 			sourceTree = "<group>";
