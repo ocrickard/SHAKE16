@@ -38,19 +38,32 @@ C ...................................................................
      + 2X,'*             December 1991                               *'/
      + 2X,'***********************************************************')
 
-      write(*,200)
-  200 format(4X,'Name of Input File =')
-      read(*,10) FIN
+C     We allow users to specify input/output file names via command-line
+C     arguments. First argument is defined to be the input file, second and
+C     third are the output files.
 
-      write(*,300)
-  300 format(4X,'Name of Output File #1 (input, peak values .. etc) =')
-      read(*,10) FOUT
+      call get_command_argument(1, FIN)
 
-      write(*,400)
-  400 format(4X,'Name of Output File #2 (time histories .. etc) =')
-      read(*,10) PUNCH
+      if (len_trim(FIN) .gt. 0) then
+        call get_command_argument(2, FOUT)
 
-   10 format(A32)
+        call get_command_argument(3, PUNCH)
+      else
+C       No command-line arguments were provided, use traditional format
+        write(*,200)
+200     format(4X,'Name of Input File =')
+        read(*,10) FIN
+
+        write(*,300)
+300     format(4X,'Name of Output File #1 input, peak values .. etc =')
+        read(*,10) FOUT
+
+        write(*,400)
+400     format(4X,'Name of Output File #2 time histories .. etc =')
+        read(*,10) PUNCH
+
+10      format(A32)
+      end if
 
       open(5,FILE=FIN,STATUS='OLD')
       open(6,FILE=FOUT,STATUS='NEW')
