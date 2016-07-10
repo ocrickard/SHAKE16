@@ -48,9 +48,11 @@ Name of Output File #2 (time histories .. etc) =
 
 Hit enter after finishing inputting each file name. If all is successful the program will perform the computations, and write the output data to the files you specified.
 
-[Example of output file 1](https://github.com/ocrickard/SHAKE16/blob/master/Input/output1.txt)
-[Example of output file 2](https://github.com/ocrickard/SHAKE16/blob/master/Input/output2.txt)
 [Example of input file](https://github.com/ocrickard/SHAKE16/blob/master/Input/INP.DAT)
+
+[Example of output file 1](https://github.com/ocrickard/SHAKE16/blob/master/Input/output1.txt)
+
+[Example of output file 2](https://github.com/ocrickard/SHAKE16/blob/master/Input/output2.txt)
 
 ## Original Readme
 
@@ -100,3 +102,5 @@ modulus values as a function of either confining pressure or shear
 strength. Object motion is now read from a separate file. Other clean-up 
 includes: renumbering of options, elimination of infrequently used options,
 user specified periods for calculating spectral ordinates.
+
+[SHAKE91 Manual](https://github.com/ocrickard/SHAKE16/raw/master/SHAKE91%20User%20Manual.pdf)
