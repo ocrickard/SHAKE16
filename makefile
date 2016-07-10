@@ -1,6 +1,6 @@
 
 build: A1.o B1.o C1.o Main.o
-	gfortran A1.o B1.o C1.o Main.o -o SHAKE91
+	gfortran A1.o B1.o C1.o Main.o -o SHAKE16
 
 A1.o: A1.f
 	gfortran -c A1.f
@@ -15,11 +15,11 @@ Main.o: Main.f
 	gfortran -c Main.f
 
 install: build
-	cp SHAKE91 /usr/local/bin/SHAKE91
+	cp SHAKE16 /usr/local/bin/SHAKE16
 
 clean:
 	rm -f *.o
-	rm -f SHAKE91
+	rm -f SHAKE16
 
 uninstall: clean
-	rm -f /usr/local/bin/SHAKE91
+	rm -f /usr/local/bin/SHAKE16
