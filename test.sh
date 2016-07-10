@@ -6,8 +6,6 @@
 #  Created by Oliver Rickard on 7/9/16.
 #  Copyright © 2016 Oliver Rickard. All rights reserved.
 
-make install
-
 rm -rf output/test
 mkdir -p output/test
 
