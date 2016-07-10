@@ -6,6 +6,7 @@ This is a modernized version of SHAKE91 to run with modern fortran compilers. He
 2. Converted to modernized `do` loop syntax for core subroutines and improved indentation.
 3. Fixed several issues that prevented compilation with modern gfortran.
 4. Added a makefile.
+5. Allowed file input from command-line arguments instead of interactive program.
 
 ## Building
 
@@ -47,6 +48,18 @@ Name of Output File #2 (time histories .. etc) =
 ```
 
 Hit enter after finishing inputting each file name. If all is successful the program will perform the computations, and write the output data to the files you specified.
+
+### Command-line interface
+
+In order to make the program easier to script and execute from other programs, I have added the ability to specify the input/output files directly from the command-line. If no arguments are provided, the traditional behavior above is used.
+
+```
+SHAKE16 INP.DAT output1.txt output2.txt
+```
+
+### Input files
+
+Please refer to the [SHAKE91 Manual](https://github.com/ocrickard/SHAKE16/raw/master/SHAKE91%20User%20Manual.pdf) for more information on the input file parameters and output format.
 
 [Example of input file](https://github.com/ocrickard/SHAKE16/blob/master/Input/INP.DAT)
 
