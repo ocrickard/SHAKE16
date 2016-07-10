@@ -54,6 +54,16 @@ Hit enter after finishing inputting each file name. If all is successful the pro
 
 [Example of output file 2](https://github.com/ocrickard/SHAKE16/blob/master/Input/output2.txt)
 
+## License
+
+The original source was published into the public domain. We have added the same license here. You are free to use, modify, copy, distribute this source or any resulting programs in any way you wish with no restrictions.
+
+https://github.com/ocrickard/SHAKE16/blob/master/LICENSE.md
+
+## AS-IS Software
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 ## Original Readme
 
 Program: SHAKE-91
