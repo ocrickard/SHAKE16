@@ -1,24 +1,24 @@
 
-build: A1.o B1.o C1.o Main.o
-	gfortran A1.o B1.o C1.o Main.o -o SHAKE16
+build: output/build/A1.o output/build/B1.o output/build/C1.o output/build/Main.o
+	gfortran output/build/A1.o output/build/B1.o output/build/C1.o output/build/Main.o -o SHAKE16
 
-A1.o: A1.f
-	gfortran -c A1.f
+output/build/A1.o: A1.f
+	gfortran -c A1.f -o output/build/A1.o
 
-B1.o: B1.f
-	gfortran -c B1.f
+output/build/B1.o: B1.f
+	gfortran -c B1.f -o output/build/B1.o
 
-C1.o: C1.f
-	gfortran -c C1.f
+output/build/C1.o: C1.f
+	gfortran -c C1.f -o output/build/C1.o
 
-Main.o: Main.f
-	gfortran -c Main.f
+output/build/Main.o: Main.f
+	gfortran -c Main.f -o output/build/Main.o
 
 install: build
 	cp SHAKE16 /usr/local/bin/SHAKE16
 
 clean:
-	rm -f *.o
+	rm -rf output/build/
 	rm -f SHAKE16
 
 uninstall: clean
