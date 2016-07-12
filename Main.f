@@ -2,7 +2,7 @@ C $NOFLOATCALLS
 C $NODEBUG
 C ...................................................................
       program SHAKE91
-      character*32 FIN,FOUT,PUNCH
+      character*256 FIN,FOUT,PUNCH
       common X(25620)
       common /TIME/ T(9)
       common /WGK/  WW, GT, SKO
